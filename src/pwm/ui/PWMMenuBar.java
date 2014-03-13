@@ -5,15 +5,12 @@ import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionListener;
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
 import javax.swing.JSeparator;
 import javax.swing.KeyStroke;
-import static pwm.ui.ReloadableButton.register;
 import pwm.Assets;
 
 /**
@@ -37,23 +34,47 @@ public class PWMMenuBar extends JMenuBar {
         createMenu("profile");
             createItem("new", KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_MASK));
             createItem("open", KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_MASK));
+            separator();
             createItem("save", KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_MASK));
             createItem("saveas");
             separator();
             createItem("changemasterkey");
-            createItem("createentry");
-            createItem("createcategory");
+            createItem("changeencryptfile");
+            
             separator();
             createItem("close", KeyStroke.getKeyStroke(KeyEvent.VK_F4, KeyEvent.ALT_MASK));
+            
+        createMenu("edit");
+            createItem("createcategory");
+            createItem("editcategory");
+            createItem("deletecategory");
+            separator();
+            createItem("createentry");
+            createItem("editentry");
+            createItem("deleteentry");
+            separator();
+            createItem("find", KeyStroke.getKeyStroke(KeyEvent.VK_F, KeyEvent.CTRL_MASK));
         
         createMenu("view");
-            createItem("dont_know_what_there_should_be");
+            createItem("changelanguage");
+            separator();
+            createItem("expandhierarchy");
+            createItem("collapsehierarchy");
         
         createMenu("tools");
-            createItem("generaterandomey");
-        
+            createItem("importpwlist");
+            createItem("exportpwlist");
+            separator();
+            createItem("passwordgen");
+            separator();
+            createItem("options");
+            
         createMenu("help");
             createItem("help", KeyStroke.getKeyStroke(KeyEvent.VK_F1,0));
+            createItem("update");
+            separator();
+            createItem("website");
+            createItem("donate");
             separator();
             createItem("about");
     }

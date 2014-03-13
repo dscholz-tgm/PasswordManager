@@ -15,7 +15,7 @@ public class PWMColors {
     public static final Color BRIGHTER_1 = new Color(70,70,70);
     public static final Color BRIGHTER_2 = new Color(90,90,90);
     public static final Color BRIGHTER_3 = new Color(140,140,140);
-    public static final Color TEXT = new Color(180,180,180);
+    public static final Color TEXT = new Color(200,200,200);
     public static final Color TEXT_2 = new Color(240,240,240);
     public static final Color BLUE = new Color(0,100,140);
     public static final Color ORANGE = new Color(240,100,0);
