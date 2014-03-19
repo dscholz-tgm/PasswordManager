@@ -4,14 +4,14 @@ package pwm;
 import java.io.File;
 
 /**
- * A Profile wich contains all Passwords
+ * A Profile which contains all Passwords
  * @author Dominik Scholz
  * @version 0.1
  */
 public class Profile {
 
     private File profileFile;
-    private boolean enrypted;
+    private boolean encrypted;
     
     public Profile(File profileFile) throws PWMException {
         checkProfilFile(profileFile);
@@ -19,12 +19,12 @@ public class Profile {
     }
     
     public void encrypt(Masterkey masterkey) {
-        enrypted = true;
+        encrypted = true;
     }
     
     public void decrypt(Masterkey masterkey) throws PWMException {
         if(isValid(masterkey)) {
-            enrypted = false;
+            encrypted = false;
         } else throw new PWMException(PWMException.INVALID_KEY);
     }
 
