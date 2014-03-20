@@ -1,7 +1,7 @@
-package engine.encryptoalgos;
+package pwm.engine.algorithms.encryptionalgorithms;
 
 import pwm.PWMException;
-import engine.hashalgos.HashingAlgorithm;
+import pwm.engine.algorithms.hashingalgorithms.HashingAlgorithm;
 
 /**
  * The interface used for replaceable encryption algorithms

@@ -1,4 +1,4 @@
-package engine.encryptoalgos;
+package pwm.engine.algorithms.encryptionalgorithms;
 
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
@@ -13,7 +13,7 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
 
 import pwm.PWMException;
-import engine.hashalgos.HashingAlgorithm;
+import pwm.engine.algorithms.hashingalgorithms.HashingAlgorithm;
 
 /**
  * AES: Advanced Encryption Standard-128
@@ -23,11 +23,11 @@ import engine.hashalgos.HashingAlgorithm;
 /*
  * TODO: Description! (how the algorithm works etc.)
  */
-public class AES128 extends EncryptionAlgorithm{
+public class AES128Encryption extends EncryptionAlgorithm{
 	
 	private final int KEYLENGTH = 16;
 	
-	public AES128(HashingAlgorithm hashAlg) {
+	public AES128Encryption(HashingAlgorithm hashAlg) {
 		super(hashAlg);
 	}
 

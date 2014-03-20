@@ -1,4 +1,4 @@
-package engine.hashalgos;
+package pwm.engine.algorithms.hashingalgorithms;
 
 import pwm.PWMException;
 

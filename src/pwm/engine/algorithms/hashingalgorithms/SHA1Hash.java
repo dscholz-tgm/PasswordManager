@@ -1,4 +1,4 @@
-package engine.hashalgos;
+package pwm.engine.algorithms.hashingalgorithms;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -15,7 +15,7 @@ import pwm.PWMException;
 /*
  * TODO: Description! (how the algorithm works etc.)
  */
-public class SHA1 implements HashingAlgorithm{
+public class SHA1Hash implements HashingAlgorithm{
 
 	@Override
 	public byte[] hash(byte[] data) throws PWMException{

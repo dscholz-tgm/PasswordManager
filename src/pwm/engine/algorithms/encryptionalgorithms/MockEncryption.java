@@ -1,6 +1,6 @@
-package engine.encryptoalgos;
+package pwm.engine.algorithms.encryptionalgorithms;
 
-import engine.hashalgos.HashingAlgorithm;
+import pwm.engine.algorithms.hashingalgorithms.HashingAlgorithm;
 
 /**
  * Mock-Encryption-Algorithm used for testing

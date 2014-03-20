@@ -1,4 +1,4 @@
-package engine.hashalgos;
+package pwm.engine.algorithms.hashingalgorithms;
 
 /**
  * Mock-Hashing-Algorithm used for testing

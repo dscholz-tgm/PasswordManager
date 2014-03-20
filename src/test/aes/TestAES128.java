@@ -10,10 +10,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import pwm.PWMException;
-import engine.encryptoalgos.AES128;
-import engine.hashalgos.HashingAlgorithm;
-import engine.hashalgos.SHA1;
-import engine.hashalgos.SHA256;
+import pwm.engine.algorithms.encryptionalgorithms.*;
+import pwm.engine.algorithms.hashingalgorithms.*;
 
 /**
  * Testfaelle fuer AES128 mit SHA1 HashingAlgorithm.
@@ -23,7 +21,7 @@ import engine.hashalgos.SHA256;
 
 public class TestAES128 {
 
-	private AES128 aes;
+	private AES128Encryption aes;
 	private byte[] in, out;
 
 	@Before
@@ -42,7 +40,7 @@ public class TestAES128 {
 	@Test
 	public void testEnDeSHA1() {
 		
-		aes= new AES128(new SHA1());
+		aes= new AES128Encryption(new SHA1Hash());
 		
 		try {
 
@@ -66,7 +64,7 @@ public class TestAES128 {
 	@Test
 	public void testEnDeSHA256() {
 		
-		aes= new AES128(new SHA256());
+		aes= new AES128Encryption(new SHA256Hash());
 
 		try {
 
@@ -93,7 +91,7 @@ public class TestAES128 {
 	@Test(expected= PWMException.class)
 	public void testKey() {
 
-		aes= new AES128(new SHA1());
+		aes= new AES128Encryption(new SHA1Hash());
 		
 		try {
 
