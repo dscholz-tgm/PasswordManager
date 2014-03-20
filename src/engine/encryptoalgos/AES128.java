@@ -25,7 +25,7 @@ import engine.hashalgos.HashingAlgorithm;
  */
 public class AES128 extends EncryptionAlgorithm{
 	
-	private final int KEYLENGTH = 128;
+	private final int KEYLENGTH = 16;
 	
 	public AES128(HashingAlgorithm hashAlg) {
 		super(hashAlg);
@@ -49,7 +49,7 @@ public class AES128 extends EncryptionAlgorithm{
 			 */
 			
 			//Preparing the algorithm
-			Cipher cipher = Cipher.getInstance("AES");
+			Cipher cipher = Cipher.getInstance("AES");	// AESCBC/NoPadding
 			SecretKeySpec k = new SecretKeySpec(key, "AES");
 			
 			//Setting the algorithm to encryption mode
@@ -78,7 +78,7 @@ public class AES128 extends EncryptionAlgorithm{
 			key = Arrays.copyOf(key, 16); //TODO REMOVE LATER. This is just to cut the SHA1 hash to 128bit.
 			
 			//Preparing the algorithm
-			Cipher cipher = Cipher.getInstance("AES");
+			Cipher cipher = Cipher.getInstance("AES"); // AESCBC/NoPadding
 			SecretKeySpec k = new SecretKeySpec(key, "AES");
 			
 			//Setting the algorithm to decryption mode
@@ -90,7 +90,7 @@ public class AES128 extends EncryptionAlgorithm{
 			return decryptedData;
 
 		} catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException ex) {
-			throw new PWMException(ex.getMessage());
+			throw new PWMException(ex.getClass() + ex.getMessage());
 		}
 	}
 	
