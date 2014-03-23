@@ -1,32 +1,23 @@
 package pwm.engine.algorithms.hashingalgorithms;
 
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import pwm.PWMException;
+import pwm.utils.DigestFactory;
 
 /**
- * SHA-256: Secure Hash Algorithm 256
- * Length: 256 bits (32 byte)
- * @author Schmidt Samuel
- * @version 0.1
- */
-/*
+ * SHA-256: Secure Hash Algorithm 256 
+ * Length: 256 bits (32 byte).
  * SHA-256 is a novel hash functions computed with 32 and 64-bit words, respectively.
+ *
+ * @author Samuel Schmidt, Scholz Dominik
+ * @version 0.2
  */
-public class SHA256Hash implements HashingAlgorithm{
+public class SHA256Hash implements HashingAlgorithm {
 
-	@Override
-	public byte[] hash(byte[] data) throws PWMException{
-		
-		try {
-			MessageDigest md5;
-			md5 = MessageDigest.getInstance("SHA-256");
-			data = md5.digest(data);
-			return data;
-			
-		} catch (NoSuchAlgorithmException ex) {
-			throw new PWMException(ex.getMessage());
-		}
-	}
-	
+    private final static MessageDigest messageDigest = DigestFactory.getDigest("SHA-256");
+    
+    @Override
+    public byte[] hash(byte[] data) {
+        return messageDigest.digest(data);
+    }
+
 }

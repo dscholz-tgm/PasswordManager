@@ -1,20 +1,19 @@
 package pwm.engine.algorithms.hashingalgorithms;
 
-import pwm.PWMException;
-
 /**
  * The interface used for replaceable hashing algorithms
+ *
  * @author Adrian Bergler
- * @version 0.1
+ * @version 0.2
  */
 public interface HashingAlgorithm {
 
-	/**
-	 * Creates a hash using the given data as a root
-	 * @param data the data to hash
-	 * @return the hash
-	 * @throws PWMException if an error occurs
-	 */
-	public byte[] hash(byte[] data) throws PWMException;
-	
+    /**
+     * Creates a hash using the given data as a root
+     *
+     * @param data the data to hash
+     * @return the hash
+     */
+    public byte[] hash(byte[] data);
+
 }

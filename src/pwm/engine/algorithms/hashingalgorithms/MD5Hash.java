@@ -1,32 +1,24 @@
 package pwm.engine.algorithms.hashingalgorithms;
 
+import pwm.utils.DigestFactory;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import pwm.PWMException;
 
 /**
- * MD5: Message-Digest Algorithm 5
- * Length: 128 bits (16 byte)
- * @author Schmidt Samuel
- * @version 0.1
+ * MD5: Message-Digest Algorithm 
+ * Length: 128 bits (16 byte). 
+ * The MD5 message-digest algorithm is a widely used cryptographic hash function
+ * producing a 128-bit (16-byte) hash value.
+ *
+ * @author Samuel Schmidt, Dominik Scholz
+ * @version 0.2
  */
-/*
- * The MD5 message-digest algorithm is a widely used cryptographic hash function producing a 128-bit (16-byte) hash value
- */
-public class MD5Hash implements HashingAlgorithm{
+public class MD5Hash implements HashingAlgorithm {
+    
+    private final static MessageDigest messageDigest = DigestFactory.getDigest("MD5");
+    
+    @Override
+    public byte[] hash(byte[] data) {
+        return messageDigest.digest(data);
+    }
 
-	@Override
-	public byte[] hash(byte[] data) throws PWMException{
-		
-		try {
-			MessageDigest md5;
-			md5 = MessageDigest.getInstance("MD5");
-			data = md5.digest(data);
-			return data;
-			
-		} catch (NoSuchAlgorithmException ex) {
-			throw new PWMException(ex.getMessage());
-		}
-	}
-	
 }
