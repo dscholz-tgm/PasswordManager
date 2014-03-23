@@ -5,7 +5,7 @@ package pwm.profilemodel.passwordfields;
  * @author Adrian Bergler
  * @version 0.1
  */
-public interface PasswordField {
+public interface EntryField {
 	/*
 	 * Stub!
 	 * TODO
