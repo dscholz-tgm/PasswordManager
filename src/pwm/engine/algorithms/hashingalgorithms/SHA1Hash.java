@@ -1,34 +1,25 @@
 package pwm.engine.algorithms.hashingalgorithms;
 
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
-
-import pwm.PWMException;
+import pwm.utils.DigestFactory;
 
 /**
- * SHA1: Secure Hash Algorithm 1
- * Length: 160 bits (20 byte)
- * @author Adrian Bergler
- * @version 0.1
+ * SHA1: Secure Hash Algorithm 1 
+ * Length: 160 bits (20 byte). 
+ * The SHA-1 Algorithm is a 160-bit hash function which resembles the earlier 
+ * MD5 algorithm. Cryptographic weaknesses were discovered in SHA-1 and so the
+ * it is no longer approved for most cryptographic uses.
+ *
+ * @author Adrian Bergler, Dominik Scholz
+ * @version 0.2
  */
-/*
- * TODO: Description! (how the algorithm works etc.)
- */
-public class SHA1Hash implements HashingAlgorithm{
+public class SHA1Hash implements HashingAlgorithm {
 
-	@Override
-	public byte[] hash(byte[] data) throws PWMException{
-		
-		try {
-			MessageDigest sha;
-			sha = MessageDigest.getInstance("SHA-1");
-			data = sha.digest(data);
-			return data;
-			
-		} catch (NoSuchAlgorithmException ex) {
-			throw new PWMException(ex.getMessage());
-		}
-	}
-	
+    private final static MessageDigest messageDigest = DigestFactory.getDigest("SHA-1");
+    
+    @Override
+    public byte[] hash(byte[] data) {
+        return messageDigest.digest(data);
+    }
+
 }
