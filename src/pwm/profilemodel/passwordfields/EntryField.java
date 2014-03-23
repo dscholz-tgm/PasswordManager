@@ -6,7 +6,8 @@ package pwm.profilemodel.passwordfields;
  * @version 0.1
  */
 public abstract class EntryField {
-	public String value;
+	
+	protected String value;
 	
 	public EntryField(String value){
 		this.value = value;
