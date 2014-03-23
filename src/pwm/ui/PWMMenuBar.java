@@ -77,6 +77,15 @@ public class PWMMenuBar extends JMenuBar {
             createItem("donate");
             separator();
             createItem("about");
+            
+        createMenu("help");
+            createItem("help", KeyStroke.getKeyStroke(KeyEvent.VK_F1,0));
+            createItem("update");
+            separator();
+            createItem("website");
+            createItem("donate");
+            separator();
+            createItem("about");
     }
     
     public JMenu createMenu(String identifier) {
