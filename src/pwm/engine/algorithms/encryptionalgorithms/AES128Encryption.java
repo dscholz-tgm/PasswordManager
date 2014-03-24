@@ -15,7 +15,7 @@ import pwm.utils.CipherFactory;
  * AES: Advanced Encryption Standard-128
  *
  * @author Adrian Bergler, Dominik Scholz
- * @version 0.2
+ * @version 0.3
  */
 /*
  * TODO: Description! (how the algorithm works etc.)
