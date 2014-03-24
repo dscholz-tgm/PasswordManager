@@ -7,9 +7,14 @@ import java.util.List;
  * Category which stores other entries
  *
  * @author Adrian Bergler, Dominik Scholz
- * @version 0.3
+ * @version 0.4
  */
 public class Category implements ProfileEntry {
+    
+    /**
+     * Random generated serialID
+     */
+    private static final long serialVersionUID = 2069284891251627767L;
     
     private EntryContainer parent;
     private List<ProfileEntry> entries = new ArrayList<>();
@@ -50,7 +55,7 @@ public class Category implements ProfileEntry {
 
     public String getName() { return name; }
     public String getDescription() { return desc; }
-    public List getEntries() { return entries; }
+    public List<ProfileEntry> getEntries() { return entries; }
     
     public void setName(String name) { this.name = name; }
     public void setDescription(String desc) { this.desc = desc; }

@@ -10,10 +10,15 @@ import pwm.profilemodel.passwordfields.PasswordField;
  * A Password-Entry
  *
  * @author Adrian Bergler, Dominik Scholz
- * @version 0.2
+ * @version 0.3
  */
 public class PasswordEntry implements ProfileEntry {
 
+    /**
+     * Random generated serialID
+     */
+    private static final long serialVersionUID = 5035181717357532638L;
+    
     private EntryContainer parent;
     private List<EntryField> entryfields = new ArrayList<>();
 
