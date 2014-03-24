@@ -10,6 +10,7 @@ import pwm.Assets;
 
 /**
  * The display of the manager
+ * 
  * @author Dominik
  * @version 0.1
  */
@@ -51,7 +52,7 @@ public class Display extends JFrame {
         this.assets = assets;
     }
     
-     private void updateLanguage() {
+    private void updateLanguage() {
     }
 
 }

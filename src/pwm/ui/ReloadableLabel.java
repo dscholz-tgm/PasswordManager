@@ -9,10 +9,12 @@ import pwm.Assets;
  * Represents a Reloadable Lable (text)
  * It also provides the facility for renaming every
  * ReloadableLable, because it stores every added one
+ * 
  * @author Dominik Scholz
  * @version 0.1
  */
 public class ReloadableLabel {
+    
     private static List<ReloadableLabel> lableList = new LinkedList<>();
     private String identifier;
     private JLabel label;

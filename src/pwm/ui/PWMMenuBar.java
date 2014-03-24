@@ -9,21 +9,21 @@ import java.awt.event.KeyEvent;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JSeparator;
 import javax.swing.KeyStroke;
 import pwm.Assets;
 
 /**
  * The menu bar
+ * 
  * @author Dominik Scholz
- * @version 0.1
+ * @version 0.2
  */
-public class PWMMenuBar extends JMenuBar {
+public final class PWMMenuBar extends JMenuBar {
     
-    private Assets assets;
+    private final Assets assets;
     private JMenu pointer;
     private final String identifier = "menubar";
-    private ActionListener menuListener;
+    private final ActionListener menuListener;
 
     public PWMMenuBar(Assets assets) {
         super();
@@ -32,45 +32,45 @@ public class PWMMenuBar extends JMenuBar {
         menuListener = new MenuListener();
         
         createMenu("profile");
-            createItem("new", KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_MASK));
-            createItem("open", KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_MASK));
+            createItem("new", true, KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_MASK));
+            createItem("open", true, KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_MASK));
             separator();
-            createItem("save", KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_MASK));
-            createItem("saveas");
+            createItem("save", false, KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_MASK));
+            createItem("saveas", false);
             separator();
-            createItem("changemasterkey");
-            createItem("changeencryptfile");
+            createItem("changemasterkey", false);
+            createItem("changeencryptfile", false);
             
             separator();
-            createItem("close", KeyStroke.getKeyStroke(KeyEvent.VK_F4, KeyEvent.ALT_MASK));
+            createItem("close", true, KeyStroke.getKeyStroke(KeyEvent.VK_F4, KeyEvent.ALT_MASK));
             
         createMenu("edit");
-            createItem("createcategory");
-            createItem("editcategory");
-            createItem("deletecategory");
+            createItem("createcategory", false);
+            createItem("editcategory", false);
+            createItem("deletecategory", false);
             separator();
-            createItem("createentry");
-            createItem("editentry");
-            createItem("deleteentry");
+            createItem("createentry", false);
+            createItem("editentry", false);
+            createItem("deleteentry", false);
             separator();
-            createItem("find", KeyStroke.getKeyStroke(KeyEvent.VK_F, KeyEvent.CTRL_MASK));
+            createItem("find", false, KeyStroke.getKeyStroke(KeyEvent.VK_F, KeyEvent.CTRL_MASK));
         
         createMenu("view");
             createItem("changelanguage");
             separator();
-            createItem("expandhierarchy");
-            createItem("collapsehierarchy");
+            createItem("expandhierarchy", false);
+            createItem("collapsehierarchy", false);
         
         createMenu("tools");
-            createItem("importpwlist");
-            createItem("exportpwlist");
+            createItem("importpwlist", false);
+            createItem("exportpwlist", false);
             separator();
             createItem("passwordgen");
             separator();
             createItem("options");
             
         createMenu("help");
-            createItem("help", KeyStroke.getKeyStroke(KeyEvent.VK_F1,0));
+            createItem("help", true, KeyStroke.getKeyStroke(KeyEvent.VK_F1,0));
             createItem("update");
             separator();
             createItem("website");
@@ -91,22 +91,26 @@ public class PWMMenuBar extends JMenuBar {
     }
     
     public JMenuItem createItem(String identifier) {
+        return createItem(identifier, true);
+    }
+    
+    public JMenuItem createItem(String identifier, boolean enabled) {
         String fullIdentifier = pointer.getName() + "." + identifier;
-        JMenuItem item = ReloadableButton.register(fullIdentifier, new JMenuItem());
+        JMenuItem item = ReloadableButton.register(fullIdentifier, new JMenuItem(), enabled);
         item.setActionCommand(identifier);
         item.addActionListener(menuListener);
         pointer.add(item);
         return item;
     }
     
-    public JMenuItem createItem(String identifier, KeyStroke ks) {
-        JMenuItem item = createItem(identifier);
+    public JMenuItem createItem(String identifier, boolean enabled, KeyStroke ks) {
+        JMenuItem item = createItem(identifier, enabled);
         item.setAccelerator(ks);
         return item;
     }
     
     private void separator() {
-        pointer.add(new JSeparator());
+        pointer.addSeparator();
     }
     
     @Override
