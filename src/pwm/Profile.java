@@ -1,11 +1,7 @@
 package pwm;
 
-
+import pwm.profilemodel.ProfileModel;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-import pwm.profilemodel.ProfileEntry;
 
 /**
  * A Profile which contains all Passwords
@@ -16,7 +12,7 @@ public class Profile {
 
     private File profileFile;
     private boolean encrypted;
-    private List<ProfileEntry> profileEntries;
+    private ProfileModel profilemodel;
     
     public Profile(File profileFile) throws PWMException {
         checkProfilFile(profileFile);
