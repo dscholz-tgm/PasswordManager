@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 
 /**
  * Manages the assets of the Passwort Manager
+ *
  * @author Dominik Scholz
  * @version 0.3
  */
@@ -25,7 +26,7 @@ public class Assets {
     private Properties settings;
     private Properties language;
     private Image icon;
-    
+
     private static Assets instance = new Assets();
 
     private Assets() {
@@ -42,11 +43,17 @@ public class Assets {
         icon = loadImage(FILE_ICON);
     }
 
-    public static Assets get() { return instance; }
-    public Image getIcon() {  return icon; }
+    public static Assets get() {
+        return instance;
+    }
+
+    public Image getIcon() {
+        return icon;
+    }
 
     /**
      * Loads a single Properties file, from the given path
+     *
      * @param path the path from which the properties file should be loaded
      * @return the loaded properties file
      */
@@ -62,11 +69,10 @@ public class Assets {
     }
 
     /**
-     * Loads a single Properties file, from the given path with applying the
-     * given default properties
+     * Loads a single Properties file, from the given path with applying the given default properties
+     *
      * @param path the path from which the Properties file should be loaded
-     * @param defaultProperties the Properties file, where the default values
-     * are locaded
+     * @param defaultProperties the Properties file, where the default values are locaded
      * @return the loaded properties file
      */
     public Properties loadProperties(String path, Properties defaultProperties) {
@@ -82,6 +88,7 @@ public class Assets {
 
     /**
      * Returns the setting to the given key
+     *
      * @param key the key to get the value from
      * @return the value to the given key
      */
@@ -91,6 +98,7 @@ public class Assets {
 
     /**
      * Returns the setting to the given key
+     *
      * @param key the key to get the value from
      * @param defaultValue the defaultValue for when the key isn't found
      * @return the value to the given key
@@ -101,9 +109,9 @@ public class Assets {
 
     /**
      * Returns the integer value of a setting to the given key
+     *
      * @param key the key to get the value from
-     * @return the value to the given key as integer if it is an integer, if not
-     * Integer.MIN_VALUE
+     * @return the value to the given key as integer if it is an integer, if not Integer.MIN_VALUE
      */
     public int getIntSetting(String key) {
         int number = Integer.MIN_VALUE;
@@ -140,6 +148,7 @@ public class Assets {
 
     /**
      * Loads an image
+     *
      * @param path the path from the image
      * @return the image or null if the image wasn't found
      */

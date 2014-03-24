@@ -1,16 +1,17 @@
 package pwm.profilemodel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Password-Category
- * @author Adrian Bergler
- * @version 0.1
+ * Category which stores other entries
+ *
+ * @author Adrian Bergler, Dominik Scholz
+ * @version 0.2
  */
-public class Category extends ProfileEntry{
-	
-	private List<ProfileEntry> profileentries;
+public class Category extends ProfileEntry implements EntryContainer {
 
+<<<<<<< HEAD
 	public Category(){
 	    //TODO
 	}
@@ -18,13 +19,46 @@ public class Category extends ProfileEntry{
 	public List<ProfileEntry> getProfileentries() {
 		return profileentries;
 	}
+=======
+    private List<ProfileEntry> entries = new ArrayList<>();
+    private String desc;
 
-	public void setProfileentries(List<ProfileEntry> profileentries) {
-		this.profileentries = profileentries;
-	}
-	
-	/*
-	 * Stub!
-	 * TODO
-	 */
+    /**
+     * Create a category with a parent and a name
+     * 
+     * @param parent the parent of the category
+     */
+    public Category(EntryContainer parent) {
+        super(parent);
+    }
+    
+    /**
+     * Create a category with a parent and a name
+     * 
+     * @param parent the parent of the category
+     * @param name the name of the category
+     */
+    public Category(EntryContainer parent, String name) {
+        super(parent,name);
+    }
+    
+    /**
+     * Creates a category with a name and a description
+     * 
+     * @param parent the parent of the category
+     * @param name the name of the category
+     * @param desc the description
+     */
+    public Category(EntryContainer parent, String name, String desc) {
+        super(parent,name);
+        this.desc = desc;
+    }
+
+    @Override
+    public List getEntries() { return entries; }
+    
+    @Override
+    public String getIdentifier() { return identifier; }
+>>>>>>> bd4519845da7ca8601a732a1add9a4d5e061f125
+
 }
