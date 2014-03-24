@@ -1,8 +1,7 @@
 package pwm.ui;
 
+import pwm.ui.rendering.PWMColors;
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
@@ -12,6 +11,10 @@ import javax.swing.JSplitPane;
 import javax.swing.JToolBar;
 import javax.swing.JTree;
 import pwm.Assets;
+import pwm.profilemodel.Category;
+import pwm.profilemodel.RootEntry;
+import pwm.ui.rendering.TreeRenderer;
+import pwm.ui.rendering.TreeWrapper;
 
 /**
  * The display of the manager
@@ -47,11 +50,15 @@ public class Display extends JFrame {
         JPanel rightPanel = new TablePanel(assets);
         JPanel footer = new PWMFooter(assets);
         
+        RootEntry re = testTree();
+        tree.setModel(new TreeWrapper(re));
+        
         //Modifying
         tree.setRootVisible(false);
         tree.setShowsRootHandles(true);
         tree.setBackground(this.getBackground());
-        centerPanel.setDividerLocation(128);
+        tree.setCellRenderer(new TreeRenderer());
+        centerPanel.setDividerLocation(160);
         
         //Local Strings
         updateLanguage();
@@ -72,6 +79,25 @@ public class Display extends JFrame {
     }
     
     private void updateLanguage() {
+    }
+
+    private RootEntry testTree() {
+        RootEntry re = new RootEntry();
+        Category cat0 = new Category(re);
+        Category cat1 = new Category(re);
+        Category cat2 = new Category(re);
+        Category cat3 = new Category(re);
+        
+        Category cat0_0 = new Category(cat0);
+        Category cat0_1 = new Category(cat0);
+        
+        Category cat1_0 = new Category(cat1);
+        Category cat1_1 = new Category(cat1);
+        Category cat1_2 = new Category(cat1);
+        
+        Category cat1_1_1 = new Category(cat1_1);
+        Category cat1_1_2 = new Category(cat1_1);
+        return re;
     }
 
 }

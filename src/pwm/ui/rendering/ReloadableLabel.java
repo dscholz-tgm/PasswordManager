@@ -1,4 +1,4 @@
-package pwm.ui;
+package pwm.ui.rendering;
 
 import java.util.LinkedList;
 import java.util.List;

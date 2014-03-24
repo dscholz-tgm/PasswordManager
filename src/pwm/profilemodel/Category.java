@@ -7,9 +7,9 @@ import java.util.List;
  * Category which stores other entries
  *
  * @author Adrian Bergler, Dominik Scholz
- * @version 0.4
+ * @version 0.5
  */
-public class Category implements ProfileEntry {
+public class Category implements ProfileEntry, EntryContainer {
     
     /**
      * Random generated serialID
@@ -48,13 +48,16 @@ public class Category implements ProfileEntry {
      * @param desc the description
      */
     public Category(EntryContainer parent, String name, String desc) {
-        this.parent = parent;
         this.name = name;
         this.desc = desc;
+        setParent(parent);
     }
 
+    @Override
     public String getName() { return name; }
     public String getDescription() { return desc; }
+    
+    @Override
     public List<ProfileEntry> getEntries() { return entries; }
     
     public void setName(String name) { this.name = name; }
@@ -64,6 +67,14 @@ public class Category implements ProfileEntry {
     public EntryContainer getParent() {  return parent; }
 
     @Override
-    public void setParent(EntryContainer parent) { this.parent = parent;  }
+    public void setParent(EntryContainer parent) { 
+        this.parent = parent;  
+        parent.addEntry(this);
+    }
+
+    @Override
+    public void addEntry(ProfileEntry entry) {
+        entries.add(entry);
+    }
 
 }

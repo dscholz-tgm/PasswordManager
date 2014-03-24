@@ -11,7 +11,7 @@ import javax.imageio.ImageIO;
  * Manages the assets of the Passwort Manager
  *
  * @author Dominik Scholz
- * @version 0.3
+ * @version 0.4
  */
 public class Assets {
 
@@ -21,11 +21,15 @@ public class Assets {
     public final static String FILE_LANG_EN = DATA_PATH + "lang_en";
     public final static String FILE_LANG_DE = DATA_PATH + "lang_de";
     public final static String FILE_ICON = DATA_PATH + "icon.png";
+    public final static String FILE_LEAF = DATA_PATH + "category_leaf.png";
+    public final static String FILE_NOLEAF = DATA_PATH + "category_noleaf.png";
 
     private Properties defaultSettings;
     private Properties settings;
     private Properties language;
     private Image icon;
+    private Image leaficon;
+    private Image noleaficon;
 
     private static Assets instance = new Assets();
 
@@ -41,15 +45,17 @@ public class Assets {
 
         //loading the Images
         icon = loadImage(FILE_ICON);
+        leaficon = loadImage(FILE_LEAF);
+        noleaficon = loadImage(FILE_NOLEAF);
     }
 
     public static Assets get() {
         return instance;
     }
 
-    public Image getIcon() {
-        return icon;
-    }
+    public Image getIcon() { return icon; }
+    public Image getLeafIcon() { return leaficon; }
+    public Image getNoLeafIcon() { return noleaficon; }
 
     /**
      * Loads a single Properties file, from the given path
@@ -160,4 +166,5 @@ public class Assets {
         }
         return image;
     }
+
 }

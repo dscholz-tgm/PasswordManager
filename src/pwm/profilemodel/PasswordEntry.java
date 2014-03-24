@@ -23,7 +23,7 @@ public class PasswordEntry implements ProfileEntry {
     private List<EntryField> entryfields = new ArrayList<>();
 
     public PasswordEntry(EntryContainer parent, String password) {
-        this.parent = parent;
+        setParent(parent);
         addEntry(new PasswordField(password));
     }
     
@@ -31,7 +31,11 @@ public class PasswordEntry implements ProfileEntry {
     public EntryContainer getParent() { return parent; }
 
     @Override
-    public void setParent(EntryContainer parent) { this.parent = parent; }
+    public void setParent(EntryContainer parent) { 
+        this.parent = parent;  
+        parent.addEntry(this);
+    }
+
 
     public List<EntryField> getEntryfields() { return entryfields;  }
     public void setEntryfields(List<EntryField> entryfields) { this.entryfields = entryfields; }

@@ -1,5 +1,7 @@
 package pwm.ui;
 
+import pwm.ui.rendering.ReloadableButton;
+import pwm.ui.rendering.PWMColors;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;

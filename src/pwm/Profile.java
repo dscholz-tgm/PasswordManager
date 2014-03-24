@@ -26,11 +26,15 @@ public class Profile {
     private final String filename = "passwords.pwmp";
     
     private byte[] key;
+    
+    private static Profile instance;
 
     public Profile(File profileFile) throws PWMException {
         checkProfilFile(profileFile);
         this.profileFile = profileFile;
     }
+    
+    public static Profile get() { return instance; }
 
     /**
      * Encrypts the profilemodel and saves it to the file

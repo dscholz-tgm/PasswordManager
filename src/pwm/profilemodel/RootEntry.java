@@ -7,7 +7,7 @@ import java.util.List;
  * Represents the top piece of the profilemodel
  * 
  * @author Dominik Scholz
- * @version 0.2
+ * @version 0.3
  */
 public class RootEntry implements EntryContainer {
     
@@ -20,5 +20,15 @@ public class RootEntry implements EntryContainer {
 
     @Override
     public List<ProfileEntry> getEntries() { return entries; }
+
+    @Override
+    public void addEntry(ProfileEntry entry) {
+        entries.add(entry);
+    }
+
+    @Override
+    public String getName() {
+        return "root";
+    }
     
 }
