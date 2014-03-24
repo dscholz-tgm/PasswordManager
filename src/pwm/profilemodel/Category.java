@@ -12,9 +12,9 @@ public class Category extends ProfileEntry{
 	private List<ProfileEntry> profileentries;
 
 	public Category(){
-		//TODO
+	    //TODO
 	}
-	
+
 	public List<ProfileEntry> getProfileentries() {
 		return profileentries;
 	}

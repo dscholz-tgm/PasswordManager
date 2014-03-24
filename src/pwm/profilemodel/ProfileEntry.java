@@ -10,9 +10,9 @@ import pwm.profilemodel.passwordfields.EntryField;
  * @version 0.1
  */
 public abstract class ProfileEntry {
-
-	/*
-	 * Stub!
-	 * TODO
-	 */
+    
+    /*
+     * Stub!
+     * TODO
+     */
 }
