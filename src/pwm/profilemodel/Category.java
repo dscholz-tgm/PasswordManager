@@ -10,16 +10,7 @@ import java.util.List;
  * @version 0.2
  */
 public class Category extends ProfileEntry implements EntryContainer {
-
-<<<<<<< HEAD
-	public Category(){
-	    //TODO
-	}
-
-	public List<ProfileEntry> getProfileentries() {
-		return profileentries;
-	}
-=======
+    
     private List<ProfileEntry> entries = new ArrayList<>();
     private String desc;
 
@@ -59,6 +50,5 @@ public class Category extends ProfileEntry implements EntryContainer {
     
     @Override
     public String getIdentifier() { return identifier; }
->>>>>>> bd4519845da7ca8601a732a1add9a4d5e061f125
 
 }
