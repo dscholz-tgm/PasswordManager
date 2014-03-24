@@ -11,25 +11,29 @@ public class TestReadSerialization {
     
     public static void main(String[] args){
         
+        Mother mom = read();
+        
+        System.out.println(mom);
+    }
+    
+    public static Mother read(){
         TestDatasource tds = TestDatasource.get();
         
-        InputStream fis = null;
         Mother mom = null;
         
-        try
+        try(FileInputStream fis = new FileInputStream(tds.getFilename()))
         {
-          fis = new FileInputStream(tds.getFilename());
           
           ObjectInputStream o = new ObjectInputStream( fis );
           mom = (Mother) o.readObject();
           
+        } catch (ClassNotFoundException | IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
-        catch ( IOException e ) { System.err.println( e ); }
-        catch ( ClassNotFoundException e ) { System.err.println( e ); }
-        finally { try { fis.close(); } catch ( Exception e ) { } }
         
-        System.out.println(mom);
         
+        return mom;
     }
     
 }
