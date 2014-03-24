@@ -7,19 +7,13 @@ import java.util.List;
  * Represents the top piece of the profilemodel
  * 
  * @author Dominik Scholz
- * @version 0.1
+ * @version 0.2
  */
-public class ProfileModel implements EntryContainer {
+public class RootEntry implements EntryContainer {
     
     private List<ProfileEntry> entries = new ArrayList<>();
-    private String name;
-    
-    public ProfileModel(String name) {
-        this.name = name;
-    }
 
     @Override
     public List getEntries() { return entries; }
-    @Override
-    public String getIdentifier() { return name; }
+    
 }

@@ -1,6 +1,6 @@
 package pwm;
 
-import pwm.profilemodel.ProfileModel;
+import pwm.profilemodel.RootEntry;
 import java.io.File;
 
 /**
@@ -12,7 +12,7 @@ public class Profile {
 
     private File profileFile;
     private boolean encrypted;
-    private ProfileModel profilemodel;
+    private RootEntry profilemodel;
     
     public Profile(File profileFile) throws PWMException {
         checkProfilFile(profileFile);

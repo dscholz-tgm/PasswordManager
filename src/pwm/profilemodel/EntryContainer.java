@@ -1,25 +1,18 @@
 package pwm.profilemodel;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
- * Represents a container, cabable of storing different
- * profile entries
- * 
+ * Specifies a class which is capable of containing entries
  * @author Dominik Scholz
  * @version 0.1
  */
-public interface EntryContainer {
+public interface EntryContainer extends Serializable {
     
     /**
-     * Returns a list of all child entries
-     * @return a list of the child entries
+     * Returns a list of all entries contained in this container
+     * @return a list af all the contained entries
      */
-    public List getEntries();
-
-    /**
-     * Returns the identifier of this entry container
-     * @return the indentifier of this entry container
-     */
-    public String getIdentifier();
+    public List<ProfileEntry> getEntries();
 }

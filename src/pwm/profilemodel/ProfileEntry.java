@@ -1,42 +1,26 @@
 package pwm.profilemodel;
 
+import java.io.Serializable;
+
 /**
  * A Profil-Entry
  *
  * @author Adrian Bergler, Dominik Scholz
- * @version 0.2
+ * @version 0.3
  */
-public abstract class ProfileEntry {
+public interface ProfileEntry extends Serializable {
     
-    protected EntryContainer parent;
-    protected String name;
-    protected String identifier;
-    
-    public ProfileEntry(EntryContainer parent) {
-        this(parent,"Entry " + parent.getEntries().size() + 1);
-    }
-    
-    public ProfileEntry(EntryContainer parent, String name) {
-        this.name = name;
-        updateParent(parent);
-    }
-    
-    public EntryContainer getParent() { return parent; };
-    public String getName() { return name; };
-    public String getIdentifier() { return identifier; };
-    
-    public void updateParent(EntryContainer parent) {
-        this.parent = parent;
-        buildIdentifier();
-    }
-    
-    public void updateName(String name) {
-        this.name = name;
-        buildIdentifier();
-    }
-    
-    private void buildIdentifier() {
-        identifier = parent.getIdentifier() + "." + name;
-    }
+    /**
+     * Returns the parent of this profile entry
+     * @return the parent
+     */
+    public EntryContainer getParent();
+
+        
+    /**
+     * Sets the parent of this
+     * @param parent the parent of this profile entry
+     */
+    public void setParent(EntryContainer parent);
     
 }
