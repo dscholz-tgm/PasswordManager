@@ -11,9 +11,14 @@ import java.util.List;
  */
 public class RootEntry implements EntryContainer {
     
+    /**
+     * Random generated serialID
+     */
+    private static final long serialVersionUID = -4354069793170425639L;
+    
     private List<ProfileEntry> entries = new ArrayList<>();
 
     @Override
-    public List getEntries() { return entries; }
+    public List<ProfileEntry> getEntries() { return entries; }
     
 }

@@ -5,7 +5,7 @@ import java.io.File;
 
 /**
  * A Profile which contains all Passwords
- * @author Dominik Scholz
+ * @author Adrian Bergler, Dominik Scholz
  * @version 0.1
  */
 public class Profile {
