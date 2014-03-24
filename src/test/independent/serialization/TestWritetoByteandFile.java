@@ -10,6 +10,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 
+import pwm.PWMException;
 import test.independent.serialization.testobjects.Mother;
 
 public class TestWritetoByteandFile {
@@ -21,7 +22,19 @@ public class TestWritetoByteandFile {
         
         byte[] array = writetoArray(mom);
         
-        writetoFile(array);
+        if(array == null) System.out.println("Arraybug");
+        
+        byte[] key = "Test".getBytes();
+        
+        byte[] encrypted = null;
+        try {
+            encrypted = tds.getEncryptionAlgorithm().encrypt(array, key);
+        } catch (PWMException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+        writetoFile(encrypted);
         
     }
     

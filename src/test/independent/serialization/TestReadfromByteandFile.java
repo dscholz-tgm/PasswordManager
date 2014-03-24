@@ -6,16 +6,28 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
+import pwm.PWMException;
 import test.independent.serialization.testobjects.Mother;
 
 public class TestReadfromByteandFile {
     
     public static void main(String[] args){
+        TestDatasource tds = TestDatasource.get();
+        
         Mother mom = null;
         
         byte[] array = readfromFile();
         
-        mom = readfromArray(array);
+        byte[] decrypted = null;
+        try {
+            decrypted = tds.getEncryptionAlgorithm().decrypt(array, "Test".getBytes());
+        } catch (PWMException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+        
+        mom = readfromArray(decrypted);
         
         System.out.println(mom);
     }
