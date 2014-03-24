@@ -1,12 +1,8 @@
 package pwm;
 
-import pwm.engine.algorithms.encryptionalgorithms.AES128Encryption;
 import pwm.engine.algorithms.encryptionalgorithms.EncryptionAlgorithm;
-import pwm.engine.algorithms.hashingalgorithms.SHA256Hash;
 import pwm.profilemodel.RootEntry;
 import pwm.utils.EncryptionFactory;
-import test.independent.serialization.TestDatasource;
-import test.independent.serialization.testobjects.Mother;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -26,7 +22,6 @@ import java.io.ObjectOutputStream;
 public class Profile {
 
     private File profileFile;
-    private boolean encrypted;
     private RootEntry profilemodel;
     private final String filename = "passwords.pwmp";
     
