@@ -1,18 +1,22 @@
 package test.independent.serialization;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 
 import pwm.PWMException;
+import pwm.engine.algorithms.encryptionalgorithms.AES128Encryption;
+import pwm.engine.algorithms.encryptionalgorithms.EncryptionAlgorithm;
+import pwm.engine.algorithms.hashingalgorithms.SHA256Hash;
 import test.independent.serialization.testobjects.Mother;
 
+/**
+ * Tests parsing objects to a byte array and then write into a file
+ * 
+ * @author Adrian Bergler
+ * @version 0.1
+ */
 public class TestWritetoByteandFile {
     
     public static void main(String[] args){
@@ -24,11 +28,14 @@ public class TestWritetoByteandFile {
         
         if(array == null) System.out.println("Arraybug");
         
-        byte[] key = "Test".getBytes();
+        byte[] key = "test".getBytes();
         
         byte[] encrypted = null;
         try {
-            encrypted = tds.getEncryptionAlgorithm().encrypt(array, key);
+            EncryptionAlgorithm ea = null;
+            ea = new AES128Encryption(new SHA256Hash());
+            
+            encrypted = ea.encrypt(array, key);
         } catch (PWMException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -41,8 +48,7 @@ public class TestWritetoByteandFile {
     public static byte[] writetoArray(Mother mom){
         byte[] toReturn = null;
         
-        try(ByteArrayOutputStream baos = new ByteArrayOutputStream()){
-          ObjectOutputStream o = new ObjectOutputStream(baos);
+        try(ByteArrayOutputStream baos = new ByteArrayOutputStream(); ObjectOutputStream o = new ObjectOutputStream(baos)){
           o.writeObject(mom);
           o.flush();
           

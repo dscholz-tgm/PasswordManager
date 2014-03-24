@@ -7,20 +7,30 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 
 import pwm.PWMException;
+import pwm.engine.algorithms.encryptionalgorithms.AES128Encryption;
+import pwm.engine.algorithms.encryptionalgorithms.EncryptionAlgorithm;
+import pwm.engine.algorithms.hashingalgorithms.SHA256Hash;
 import test.independent.serialization.testobjects.Mother;
 
+/**
+ * Tests reading the content of a file into a byte array and then parsing it to objects
+ * 
+ * @author Adrian Bergler
+ * @version 0.1
+ */
 public class TestReadfromByteandFile {
     
     public static void main(String[] args){
-        TestDatasource tds = TestDatasource.get();
-        
         Mother mom = null;
         
         byte[] array = readfromFile();
         
         byte[] decrypted = null;
         try {
-            decrypted = tds.getEncryptionAlgorithm().decrypt(array, "Test".getBytes());
+            EncryptionAlgorithm ea = null;
+            ea = new AES128Encryption(new SHA256Hash());
+            
+            decrypted = ea.decrypt(array, "test".getBytes());
         } catch (PWMException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -38,9 +48,7 @@ public class TestReadfromByteandFile {
         
         
         
-        try(FileInputStream fis = new FileInputStream(tds.getFilename())){
-            
-            ByteArrayOutputStream bais = new ByteArrayOutputStream();
+        try(FileInputStream fis = new FileInputStream(tds.getFilename()); ByteArrayOutputStream bais = new ByteArrayOutputStream()){
             int nRead;
             byte[] data = new byte[65536]; //buffersize: 2^16
 
@@ -60,8 +68,6 @@ public class TestReadfromByteandFile {
     }
     
     public static Mother readfromArray(byte[] toRead){
-        TestDatasource tds = TestDatasource.get();
-        
         Mother mom = null;
         
         try{

@@ -2,11 +2,16 @@ package test.independent.serialization;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
 
 import test.independent.serialization.testobjects.*;
 
+/**
+ * Tests reading objects directly from a file
+ * 
+ * @author Adrian Bergler
+ * @version 0.1
+ */
 public class TestReadSerialization {
     
     public static void main(String[] args){
@@ -21,10 +26,8 @@ public class TestReadSerialization {
         
         Mother mom = null;
         
-        try(FileInputStream fis = new FileInputStream(tds.getFilename()))
+        try(FileInputStream fis = new FileInputStream(tds.getFilename()); ObjectInputStream o = new ObjectInputStream(fis))
         {
-          
-          ObjectInputStream o = new ObjectInputStream( fis );
           mom = (Mother) o.readObject();
           
         } catch (ClassNotFoundException | IOException e) {

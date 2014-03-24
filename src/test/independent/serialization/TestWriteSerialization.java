@@ -3,6 +3,12 @@ package test.independent.serialization;
 import java.io.*;
 import test.independent.serialization.testobjects.*;
 
+/**
+ * Tests writing objects directly to a file
+ * 
+ * @author Adrian Bergler
+ * @version 0.1
+ */
 public class TestWriteSerialization {
     
     public static void main(String[] args){
