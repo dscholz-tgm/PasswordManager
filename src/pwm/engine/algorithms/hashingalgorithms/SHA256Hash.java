@@ -13,7 +13,7 @@ import pwm.utils.DigestFactory;
  */
 public class SHA256Hash implements HashingAlgorithm {
 
-    private final static MessageDigest messageDigest = DigestFactory.getDigest("SHA-256");
+	private static final MessageDigest messageDigest = DigestFactory.getDigest("SHA-256");
     
     @Override
     public byte[] hash(byte[] data) {

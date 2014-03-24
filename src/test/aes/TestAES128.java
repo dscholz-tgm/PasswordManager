@@ -24,7 +24,7 @@ public class TestAES128 {
     private final Charset charset = PWMCharset.get();
 
     @Before
-    public void prepare() {
+    public void prepare() throws PWMException {
         aes = new AES128Encryption(new SHA1Hash());
     }
 

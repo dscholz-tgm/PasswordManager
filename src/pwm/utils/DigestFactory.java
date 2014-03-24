@@ -12,7 +12,7 @@ import java.security.NoSuchAlgorithmException;
  */
 public class DigestFactory {
     
-    private static final MessageDigest fallbackDigest = getDigest("MD5");
+    private static final MessageDigest fallbackDigest = getDigest("SHA-256");
 
     public static MessageDigest getDigest(String hashName) {
         try {

@@ -12,6 +12,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 import pwm.PWMException;
 import pwm.engine.algorithms.hashingalgorithms.HashingAlgorithm;
+import pwm.utils.CipherFactory;
 
 /**
  * AES: Advanced Encryption Standard-128
@@ -24,17 +25,11 @@ import pwm.engine.algorithms.hashingalgorithms.HashingAlgorithm;
  */
 public class AES128Encryption extends EncryptionAlgorithm {
 
-    private final Cipher cipher;
+    private final Cipher cipher = CipherFactory.getCipher("AES"); //AESCBC/NoPadding
     private final int KEYLENGTH = 16;
 
     public AES128Encryption(HashingAlgorithm hashAlg) throws PWMException {
-        super(hashAlg);
-        try {
-            cipher = Cipher.getInstance("AES"); // AESCBC/NoPadding
-        } catch (NoSuchAlgorithmException | NoSuchPaddingException ex) {
-            throw new PWMException(ex);
-        }	
-        
+        super(hashAlg);        
     }
 
     @Override
