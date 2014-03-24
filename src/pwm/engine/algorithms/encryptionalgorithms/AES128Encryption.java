@@ -32,7 +32,8 @@ public class AES128Encryption extends EncryptionAlgorithm {
 
     @Override
     public byte[] encrypt(byte[] data, byte[] key) throws PWMException {
-    	return crypto(data, key, Cipher.ENCRYPT_MODE);
+        byte[] toReturn = crypto(data, key, Cipher.ENCRYPT_MODE);
+    	return toReturn;
     }
 
     @Override
@@ -43,7 +44,7 @@ public class AES128Encryption extends EncryptionAlgorithm {
     private byte[] crypto(byte[] data, byte[] key, int mode) throws PWMException{
         try {
         	//Hashing and cutting the key
-            assimilateKey(key);
+            key = assimilateKey(key);
 
             //Preparing the algorithm
             SecretKeySpec k = new SecretKeySpec(key, "AES");

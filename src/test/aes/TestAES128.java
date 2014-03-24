@@ -55,7 +55,7 @@ public class TestAES128 {
         
         byte[] text = "test".getBytes(charset);
         byte[] encrypKey = "key".getBytes(charset);
-        byte[] decrypKey = "key".getBytes(charset);
+        byte[] decrypKey = "keyother".getBytes(charset);
         
         in = aes.encrypt(text, encrypKey);
         out = aes.decrypt(in, decrypKey);
