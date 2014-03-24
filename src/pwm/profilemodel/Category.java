@@ -4,27 +4,28 @@ import java.util.List;
 
 /**
  * Password-Category
+ *
  * @author Adrian Bergler
  * @version 0.1
  */
-public class Category extends ProfileEntry{
-	
-	private List<ProfileEntry> profileentries;
+public class Category extends ProfileEntry {
 
-	public Category(){
-		//TODO
-	}
-	
-	public List<ProfileEntry> getProfileentries() {
-		return profileentries;
-	}
+    private List<ProfileEntry> profileentries;
 
-	public void setProfileentries(List<ProfileEntry> profileentries) {
-		this.profileentries = profileentries;
-	}
-	
-	/*
-	 * Stub!
-	 * TODO
-	 */
+    public Category() {
+        //TODO
+    }
+
+    public List<ProfileEntry> getProfileentries() {
+        return profileentries;
+    }
+
+    public void setProfileentries(List<ProfileEntry> profileentries) {
+        this.profileentries = profileentries;
+    }
+
+    /*
+     * Stub!
+     * TODO
+     */
 }
