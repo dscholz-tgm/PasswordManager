@@ -7,14 +7,7 @@ package pwm.profilemodel;
  * @version 0.2
  */
 public abstract class ProfileEntry {
-<<<<<<< HEAD
     
-    /*
-     * Stub!
-     * TODO
-     */
-=======
-
     protected EntryContainer parent;
     protected String name;
     protected String identifier;
@@ -45,5 +38,5 @@ public abstract class ProfileEntry {
     private void buildIdentifier() {
         identifier = parent.getIdentifier() + "." + name;
     }
->>>>>>> bd4519845da7ca8601a732a1add9a4d5e061f125
+    
 }
