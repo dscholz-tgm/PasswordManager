@@ -1,5 +1,7 @@
 package pwm.engine.algorithms.encryptionalgorithms;
 
+import java.util.Arrays;
+
 import pwm.PWMException;
 import pwm.engine.algorithms.hashingalgorithms.HashingAlgorithm;
 
@@ -12,11 +14,15 @@ import pwm.engine.algorithms.hashingalgorithms.HashingAlgorithm;
 public abstract class EncryptionAlgorithm {
 
     protected HashingAlgorithm hashAlg;
+    protected int keylength;
 
     public EncryptionAlgorithm(HashingAlgorithm hashAlg) {
         this.hashAlg = hashAlg;
     }
 
+    public int getKeylength() { return keylength; }
+	public void setKeylength(int keylength) { this.keylength = keylength; }
+    
     /**
      * Encrypts the given data using the given key
      *
@@ -36,4 +42,21 @@ public abstract class EncryptionAlgorithm {
      * @throws PWMException 
      */
     public abstract byte[] decrypt(byte[] data, byte[] key) throws PWMException;
+    
+    /**
+     * Assimilates the key to match the keylength.
+     * Resistance is futile!
+     * @param key
+     * @return the matched key
+     * @throws PWMException 
+     */
+    public byte[] assimilateKey(byte[] key) throws PWMException{
+    	key = hashAlg.hash(key);
+        if (key.length < keylength) {
+            throw new PWMException("Invalid hashlength!");
+        }
+        key = Arrays.copyOf(key, keylength);
+        
+        return key;
+    }
 }

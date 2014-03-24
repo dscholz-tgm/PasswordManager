@@ -26,55 +26,39 @@ import pwm.utils.CipherFactory;
 public class AES128Encryption extends EncryptionAlgorithm {
 
     private final Cipher cipher = CipherFactory.getCipher("AES"); //AESCBC/NoPadding
-    private final int KEYLENGTH = 16;
 
     public AES128Encryption(HashingAlgorithm hashAlg) throws PWMException {
-        super(hashAlg);        
+        super(hashAlg);
+        
+        setKeylength(16);
     }
 
     @Override
     public byte[] encrypt(byte[] data, byte[] key) throws PWMException {
-        try {
-            key = hashAlg.hash(key);
-            if (key.length < KEYLENGTH) {
-                throw new PWMException("Invalid hashlength!");
-            }
-            key = Arrays.copyOf(key, 16);
-            SecretKeySpec k = new SecretKeySpec(key, "AES");
-            cipher.init(Cipher.ENCRYPT_MODE, k);
-            byte[] encryptedData = cipher.doFinal(data);
-            return encryptedData;
-        } catch (IllegalBlockSizeException | BadPaddingException | InvalidKeyException ex) {
-            throw new PWMException(ex);
-        }
+    	return crypto(data, key, Cipher.ENCRYPT_MODE);
     }
 
     @Override
-    public byte[] decrypt(byte[] data, byte[] key) throws PWMException {
+    public byte[] decrypt(byte[] data, byte[] key) throws PWMException {    	
+        return crypto(data, key, Cipher.DECRYPT_MODE);
+    }
+
+    private byte[] crypto(byte[] data, byte[] key, int mode) throws PWMException{
         try {
-            //Hashing the key
-            key = hashAlg.hash(key);
-
-            if (key.length < KEYLENGTH) {
-                throw new PWMException("Invalid hashlength!");
-            }
-
-            key = Arrays.copyOf(key, 16); //TODO REMOVE LATER. This is just to cut the SHA1 hash to 128bit.
+        	//Hashing and cutting the key
+            assimilateKey(key);
 
             //Preparing the algorithm
             SecretKeySpec k = new SecretKeySpec(key, "AES");
 
             //Setting the algorithm to decryption mode
-            cipher.init(Cipher.DECRYPT_MODE, k);
-
-            //Decrypt!
-            byte[] decryptedData = cipher.doFinal(data);
-
-            return decryptedData;
-
-        } catch (IllegalBlockSizeException | BadPaddingException | InvalidKeyException ex) {
-            throw new PWMException(ex);
-        }
+            cipher.init(mode, k);
+            
+            //Encrypt/Decrypt!
+			return cipher.doFinal(data);
+		} catch (IllegalBlockSizeException | BadPaddingException | PWMException | InvalidKeyException ex) {
+			throw new PWMException(ex);
+		}
     }
-
+    
 }
