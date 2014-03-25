@@ -11,7 +11,7 @@ import javax.imageio.ImageIO;
  * Manages the assets of the Passwort Manager
  *
  * @author Dominik Scholz
- * @version 0.4
+ * @version 0.5
  */
 public class Assets {
 
@@ -138,7 +138,7 @@ public class Assets {
      * @return the value to the given key
      */
     public String getLocalized(String key) {
-        return language.getProperty(key);
+        return key == null ? null : language.getProperty(key);
     }
 
     /**
@@ -149,7 +149,7 @@ public class Assets {
      * @return the value to the given key
      */
     public String getLocalized(String key, String defaultValue) {
-        return language.getProperty(key, defaultValue);
+        return key == null ? null : language.getProperty(key, defaultValue);
     }
 
     /**

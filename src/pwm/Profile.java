@@ -12,12 +12,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import pwm.utils.PWMCharset;
 
 /**
  * A Profile which contains all Passwords
  * 
  * @author Adrian Bergler, Dominik Scholz
- * @version 0.3
+ * @version 0.4
  */
 public class Profile {
 
@@ -42,10 +43,10 @@ public class Profile {
     /**
      * Constructor
      * 
-     * @param masterkey the key in plaintext (hash it!)
+     * @param masterkey the key in plaintext
      */
     public Profile(String masterkey) {
-        //key = hash(masterkey)
+        this.key = masterkey.getBytes(PWMCharset.get());
     }
 
     /**
@@ -125,7 +126,7 @@ public class Profile {
             toReturn = (RootEntry) o.readObject();
 
         } catch (ClassNotFoundException | IOException ex) {
-            throw new PWMException(ex);
+            throw new PWMException("error.readProfile");
         }
         
         return toReturn;
@@ -151,7 +152,7 @@ public class Profile {
             toReturn = baos.toByteArray();
 
         } catch (IOException ex) {
-            throw new PWMException(ex);
+            throw new PWMException("error.readProfile");
         }
 
         return toReturn;
