@@ -7,7 +7,7 @@ import pwm.ui.Display;
 /**
  * Starts the Password Manager
  * @author Dominik Scholz
- * @version 0.1
+ * @version 0.2
  */
 public class PWMStarter {
     
@@ -28,10 +28,16 @@ public class PWMStarter {
         }
         
         //loading assets
-        Assets.get();
+        Assets assets = Assets.get();
+        
+        //creating controller
+        Controller controller = new Controller(assets);
         
         //starting display
-        new Display(800,600);
+        Display display = new Display(controller,assets,800,600);
+        
+        //register display
+        controller.register(display);
     }
 
 }

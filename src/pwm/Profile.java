@@ -17,20 +17,19 @@ import java.io.ObjectOutputStream;
  * A Profile which contains all Passwords
  * 
  * @author Adrian Bergler, Dominik Scholz
- * @version 0.1
+ * @version 0.2
  */
 public class Profile {
 
+    public static final String FILE_ENDING = ".pwmp";
     private File profileFile;
     private RootEntry profilemodel;
-    private final String filename = "passwords.pwmp";
-    
+    private final String filename = "passwords" + FILE_ENDING;
     private byte[] key;
     
     private static Profile instance;
 
-    public Profile(File profileFile) throws PWMException {
-        checkProfilFile(profileFile);
+    public Profile(File profileFile) {
         this.profileFile = profileFile;
     }
     
@@ -168,8 +167,4 @@ public class Profile {
         System.out.println("Wrong Key!");
     }
 
-    private void checkProfilFile(File profileFile) throws PWMException {
-        // more advanced stuff to come!
-        if (profileFile.getPath().endsWith(".pwmp"));
-    }
 }

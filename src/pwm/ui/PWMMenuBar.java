@@ -27,11 +27,10 @@ public final class PWMMenuBar extends JMenuBar {
     private final String identifier = "menubar";
     private final ActionListener menuListener;
 
-    public PWMMenuBar(Assets assets) {
+    public PWMMenuBar(ActionListener menuListener, Assets assets) {
         super();
+        this.menuListener = menuListener;
         this.assets = assets;
-        
-        menuListener = new MenuListener();
         
         createMenu("profile");
             createItem("new", true, KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_MASK));

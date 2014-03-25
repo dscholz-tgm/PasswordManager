@@ -11,6 +11,7 @@ import javax.swing.JSplitPane;
 import javax.swing.JToolBar;
 import javax.swing.JTree;
 import pwm.Assets;
+import pwm.Controller;
 import pwm.profilemodel.Category;
 import pwm.profilemodel.RootEntry;
 import pwm.ui.rendering.TreeRenderer;
@@ -25,10 +26,12 @@ import pwm.ui.rendering.TreeWrapper;
 public class Display extends JFrame {
     
     private Assets assets;
+    private Controller controller;
     
-    public Display(int width, int height) {
-        super(Assets.get().getLocalized("windowname"));
-        assets = Assets.get();
+    public Display(Controller controller, Assets assets, int width, int height) {
+        super(assets.getLocalized("windowname"));
+        this.assets = assets;
+        this.controller = controller;
         
         //centered window
         this.setBounds(Toolkit.getDefaultToolkit().getScreenSize().width/2-width/2,
@@ -43,7 +46,7 @@ public class Display extends JFrame {
         this.getContentPane().setBackground(PWMColors.BRIGHTER_3);
         
         //Initializing
-        JMenuBar menuBar = new PWMMenuBar(assets);
+        JMenuBar menuBar = new PWMMenuBar(new MenuListener(controller),assets);
         JToolBar toolBar = new PWMToolBar(assets);
         JSplitPane centerPanel = new JSplitPane();
         JTree tree = new JTree();
