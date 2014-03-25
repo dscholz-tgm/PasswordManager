@@ -17,23 +17,36 @@ import java.io.ObjectOutputStream;
  * A Profile which contains all Passwords
  * 
  * @author Adrian Bergler, Dominik Scholz
- * @version 0.2
+ * @version 0.3
  */
 public class Profile {
 
     public static final String FILE_ENDING = ".pwmp";
     private File profileFile;
     private RootEntry profilemodel;
-    private final String filename = "passwords" + FILE_ENDING;
     private byte[] key;
-    
-    private static Profile instance;
 
-    public Profile(File profileFile) {
+    /**
+     * Constructor for opening an existing profile, calls normal constructor
+     * 
+     * @param masterkey the key to encrpyt the profile
+     * @param profileFile the file where the profile is stored
+     * @throws PWMException when the profile couldn't be loaded (wrong key, etc.)
+     */
+    public Profile(String masterkey, File profileFile) throws PWMException {
+        this(masterkey);
         this.profileFile = profileFile;
+        decrypt();
     }
     
-    public static Profile get() { return instance; }
+    /**
+     * Constructor
+     * 
+     * @param masterkey the key in plaintext (hash it!)
+     */
+    public Profile(String masterkey) {
+        //key = hash(masterkey)
+    }
 
     /**
      * Encrypts the profilemodel and saves it to the file
@@ -43,14 +56,8 @@ public class Profile {
         byte[] toEncrypt = writeToArray();
         byte[] encrypted = null;
         
-        try {
-            EncryptionAlgorithm encryptionAlgorithm = EncryptionFactory.getEncryption();
-            
-            encrypted = encryptionAlgorithm.encrypt(toEncrypt, key);
-        } catch (PWMException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        EncryptionAlgorithm encryptionAlgorithm = EncryptionFactory.getEncryption();
+        encrypted = encryptionAlgorithm.encrypt(toEncrypt, key);
         
         writeToFile(encrypted);
     }
@@ -60,19 +67,12 @@ public class Profile {
      * @throws PWMException
      */
     public void decrypt() throws PWMException {
-        byte[] ciphertext = readfromFile();
-        
+        byte[] ciphertext = readFromFile();
         byte[] decrypted = null;
         
-        try {
-            EncryptionAlgorithm encryptionAlgorithm = EncryptionFactory.getEncryption();
-            
-            decrypted = encryptionAlgorithm.decrypt(ciphertext, key);
-        } catch (PWMException e) {
-            wrongKey();     //Add more stuff?
-        }
-        
-        profilemodel = readfromArray(decrypted);
+        EncryptionAlgorithm encryptionAlgorithm = EncryptionFactory.getEncryption();
+        decrypted = encryptionAlgorithm.decrypt(ciphertext, key);
+        profilemodel = readFromArray(decrypted);
     }
 
     /**
@@ -101,7 +101,7 @@ public class Profile {
      * @param toWrite the array
      */
     private void writeToFile(byte[] toWrite) {
-        try (FileOutputStream fos = new FileOutputStream(filename)) {
+        try (FileOutputStream fos = new FileOutputStream(profileFile)) {
 
             fos.write(toWrite);
 
@@ -116,7 +116,7 @@ public class Profile {
      * @param toRead the array to parse
      * @return a RootEntry that can be used as profileentry
      */
-    public RootEntry readfromArray(byte[] toRead) {
+    public RootEntry readFromArray(byte[] toRead) throws PWMException {
         RootEntry toReturn = null;
 
         try {
@@ -124,9 +124,8 @@ public class Profile {
             ObjectInputStream o = new ObjectInputStream(bais);
             toReturn = (RootEntry) o.readObject();
 
-        } catch (ClassNotFoundException | IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        } catch (ClassNotFoundException | IOException ex) {
+            throw new PWMException(ex);
         }
         
         return toReturn;
@@ -136,10 +135,10 @@ public class Profile {
      * Reads an array from a file
      * @return the content of a file as array
      */
-    public byte[] readfromFile() {
+    public byte[] readFromFile() throws PWMException {
         byte[] toReturn = null;
 
-        try (FileInputStream fis = new FileInputStream(filename);
+        try (FileInputStream fis = new FileInputStream(profileFile);
                 ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
             int nRead;
             byte[] data = new byte[65536]; // buffersize: 2^16
@@ -151,20 +150,11 @@ public class Profile {
 
             toReturn = baos.toByteArray();
 
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        } catch (IOException ex) {
+            throw new PWMException(ex);
         }
 
         return toReturn;
-    }
-
-    /**
-     * Gets called when the key used for decryption is wrong
-     */
-    private void wrongKey(){
-      //Add more stuff?
-        System.out.println("Wrong Key!");
     }
 
 }
