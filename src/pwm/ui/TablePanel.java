@@ -20,7 +20,7 @@ import pwm.ui.rendering.TableRenderer;
  * The table panel, which shows the different password entries
  *
  * @author Dominik Scholz
- * @version 0.1
+ * @version 0.2
  */
 public class TablePanel extends JPanel {
 
@@ -49,10 +49,11 @@ public class TablePanel extends JPanel {
         table.setOpaque(true);
         table.setBackground(new Color(0,0,0,0));
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        table.setGridColor(new Color(30,30,30,70));
+        table.setShowGrid(false);
+        table.setIntercellSpacing(new Dimension(0,0));
         table.setDefaultRenderer(Object.class, new TableRenderer());
         table.setDragEnabled(false);
-        table.setColumnSelectionAllowed(false);
+        table.getTableHeader().setReorderingAllowed(false);
         
         JScrollPane scrollPane = new JScrollPane(table) {
             @Override

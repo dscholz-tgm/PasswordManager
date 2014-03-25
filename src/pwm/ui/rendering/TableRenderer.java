@@ -23,9 +23,9 @@ public class TableRenderer implements TableCellRenderer {
     private final Font font = new Font(Font.SANS_SERIF,Font.PLAIN,12);
     private final Color fontColor = PWMColors.TEXT;
     private final Color transparent = new Color(0,0,0,0);
-    private final Color selectColor = new Color(0,70,140,40);
-    private final Color rowColor1 = new Color(250,250,250,140);
-    private final Color rowColor2 = new Color(220,220,220,140);
+    private final Color selectColor = new Color(215,225,230,255);
+    private final Color rowColor1 = new Color(250,250,250,200);
+    private final Color rowColor2 = new Color(220,220,220,200);
     private final LayoutManager layout = new BorderLayout();
     private final Border border = new EmptyBorder(1,2,1,8);
 

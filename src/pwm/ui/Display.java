@@ -4,6 +4,7 @@ import pwm.ui.rendering.PWMColors;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -13,7 +14,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JToolBar;
 import javax.swing.JTree;
-import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.SplitPaneUI;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
 import pwm.Assets;
@@ -27,7 +27,7 @@ import pwm.ui.rendering.TreeWrapper;
  * The display of the manager
  *
  * @author Dominik
- * @version 0.2
+ * @version 0.3
  */
 public class Display extends JFrame {
 
@@ -63,6 +63,7 @@ public class Display extends JFrame {
             ((BasicSplitPaneUI) ui).getDivider().setBorder(null);
         }
         JTree tree = new JTree();
+        JScrollPane treePanel = new JScrollPane();
         JPanel rightPanel = new TablePanel(assets);
         JPanel footer = new PWMFooter(assets);
 
@@ -74,13 +75,16 @@ public class Display extends JFrame {
         tree.setShowsRootHandles(true);
         tree.setBackground(PWMColors.TREE_COLOR);
         tree.setCellRenderer(new TreeRenderer());
+        treePanel.setViewportView(tree);
+        treePanel.setMinimumSize(new Dimension(160,160));
         centerPanel.setDividerLocation(160);
+        centerPanel.setDividerSize(0);
 
         //Local Strings
         updateLanguage();
 
         //Adding
-        centerPanel.add(new JScrollPane(tree), JSplitPane.LEFT);
+        centerPanel.add(treePanel, JSplitPane.LEFT);
         centerPanel.add(rightPanel, JSplitPane.RIGHT);
 
         this.setJMenuBar(menuBar);
