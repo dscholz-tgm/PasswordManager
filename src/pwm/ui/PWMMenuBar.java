@@ -85,7 +85,7 @@ public final class PWMMenuBar extends JMenuBar {
         String name = assets.getLocalized(fullIdentifier);
         JMenu menu = new JMenu(name != null && name.length() > 0 ? name : fullIdentifier);
         menu.setName(fullIdentifier);
-        menu.setForeground(PWMColors.TEXT);
+        menu.setForeground(PWMColors.TEXT_2);
         this.add(menu);
         pointer = menu;
         return menu;

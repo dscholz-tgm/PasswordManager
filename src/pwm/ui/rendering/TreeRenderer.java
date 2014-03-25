@@ -12,7 +12,6 @@ import javax.swing.JPanel;
 import javax.swing.JTree;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreeCellRenderer;
 import pwm.Assets;
 import pwm.profilemodel.EntryContainer;
@@ -21,15 +20,13 @@ import pwm.profilemodel.EntryContainer;
  * Class for rendering the JTree
  *
  * @author Dominik Scholz
- * @version 0.1
+ * @version 0.2
  */
 public class TreeRenderer implements TreeCellRenderer {
 
-    private final DefaultTreeCellRenderer defaultRenderer = new DefaultTreeCellRenderer();
     private final Font font = new Font(Font.SANS_SERIF,Font.PLAIN,12);
     private final Color fontColor = PWMColors.BLUE;
-    private final Color fontColor2 = PWMColors.BLUE.darker();
-    private final Color selectColor = PWMColors.BRIGHTER_1;
+    private final Color selectColor = PWMColors.TREE_COLOR.brighter();
     private final LayoutManager layout = new BorderLayout();
     private final Border border = new EmptyBorder(1,2,1,8);
     private final Icon leaficon;
@@ -48,7 +45,7 @@ public class TreeRenderer implements TreeCellRenderer {
         JLabel lab = new JLabel(container.getName());
         lab.setFont(font);
         lab.setIcon(leaf ? leaficon : noleaficon);
-        lab.setForeground(row % 2 != 0 ? fontColor : fontColor2);
+        lab.setForeground(fontColor);
         comp.add(lab, BorderLayout.EAST);
         comp.setBackground(selected ? selectColor : tree.getBackground());
         return comp;
