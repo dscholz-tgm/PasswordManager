@@ -51,6 +51,7 @@ public class Profile {
     }
     
     public RootEntry getRootEntry() { return profilemodel; }
+    public void setFile(File file) { profileFile = file; }
 
     /**
      * Encrypts the profilemodel and saves it to the file

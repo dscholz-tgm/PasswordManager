@@ -18,6 +18,7 @@ import javax.swing.tree.TreePath;
 import pwm.Assets;
 import pwm.Controller;
 import pwm.profilemodel.EntryContainer;
+import pwm.profilemodel.ProfileEntry;
 import pwm.profilemodel.RootEntry;
 import pwm.ui.rendering.TreeRenderer;
 import pwm.ui.rendering.TreeWrapper;
@@ -117,6 +118,11 @@ public class Display extends JFrame {
     public void updateTree() {
         tree.expandPath(tree.getSelectionPath());
         tree.revalidate();
+    }
+
+    public ProfileEntry getSelectedRow() {
+        return null;
+        //TODO
     }
 
 }

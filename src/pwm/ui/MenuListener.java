@@ -23,12 +23,14 @@ public class MenuListener implements ActionListener {
             //profile
             case "new": controller.newProfile(); break;
             case "open": controller.openProfile();  break;
+            case "saveas": controller.saveProfileAs(); break;
             case "close": controller.close(); break;
                 
             //edit
             case "createcategory": controller.createCategory(); break;
             case "editcategory": controller.editCategory(); break;
             case "deletecategory": controller.removeCategory(); break;
+            case "createentry": controller.createPassword(); break;
 
             default:
             System.err.println(action);

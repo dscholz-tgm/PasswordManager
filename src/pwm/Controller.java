@@ -1,6 +1,8 @@
 package pwm;
 
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
@@ -25,6 +27,7 @@ public class Controller {
 
     private Assets assets;
     private Display display;
+    private Profile profile;
     private RootEntry root;
     private TreeWrapper tw;
     
@@ -113,9 +116,29 @@ public class Controller {
      * @param profile the profile which was created
      */
     private void loadProfile(Profile profile) {
+        this.profile = profile;
         ReloadableButton.setAllEnabled(true);
         root = profile.getRootEntry();
         tw = display.setTree(root);
+    }
+    
+    /**
+     * Invoked when saving the profile
+     */
+    public void saveProfileAs() {
+        JFileChooser chooser = new JFileChooser();
+        
+        //accepts the file
+        if(chooser.showSaveDialog(display) == JFileChooser.APPROVE_OPTION) {
+            File file = chooser.getSelectedFile(); // <--- our file 
+            if(!file.getPath().endsWith(Profile.FILE_ENDING)) file = new File(file.getPath() + Profile.FILE_ENDING);
+            profile.setFile(file);
+            try {
+                profile.encrypt();
+            } catch (PWMException ex) {
+                messageDialog(ex.getMessage(),ERROR_MESSAGE);
+            }
+        }
     }
 
     /**
@@ -156,8 +179,6 @@ public class Controller {
                 tw.nodeChanged(category);
                 tw.structureChanged(category);
                 display.updateTree();
-                new PasswordEntry(category, "Hallo", "hasdas", "ada", "adadadadad");
-                new PasswordEntry(category, "2342344423", "4234234234", "13131331", "213131313");
             }
         }
     }
@@ -177,6 +198,35 @@ public class Controller {
                 display.updateTree();
             }
         }
+    }
+    
+    /**
+     * Invoked when creating a password
+     */
+    public void createPassword() {
+        String passwordTitle = inputDialog("password.create.title");
+        String passwordUsername = inputDialog("password.create.username");
+        String passwordPassword = inputDialog("password.create.password");
+        String passwordWebsite = inputDialog("password.create.webiste");
+        
+        if(passwordTitle == null || passwordUsername == null || passwordPassword == null || passwordWebsite == null) return;
+        
+        EntryContainer cont = display.getSelectedContainer();
+        if(cont != root) new PasswordEntry(display.getSelectedContainer(),passwordTitle,passwordUsername,passwordPassword,passwordWebsite);
+    }
+    
+    /**
+     * Invoked when editing a password
+     */
+    public void editPassword() {
+        //Not implemented jet
+    }
+    
+    /**
+     * Invoked when removing a password
+     */
+    public void removePassword() {
+        //Not implemented jet
     }
     
 }
