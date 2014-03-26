@@ -2,7 +2,6 @@ package pwm.ui;
 
 import pwm.ui.rendering.PWMColors;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -13,7 +12,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JToolBar;
 import javax.swing.JTree;
-import javax.swing.event.TreeModelEvent;
 import javax.swing.plaf.SplitPaneUI;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
 import javax.swing.tree.TreePath;
@@ -72,8 +70,8 @@ public class Display extends JFrame {
         tree.setModel(null);
         
         //Modifying
-//        tree.setRootVisible(false);
-//        tree.setShowsRootHandles(true);
+        tree.setRootVisible(false);
+        tree.setShowsRootHandles(true);
         tree.setBackground(PWMColors.TREE_COLOR);
         tree.setCellRenderer(new TreeRenderer());
         tree.addTreeSelectionListener(new CategorySelectListener(rightPanel));
@@ -110,14 +108,14 @@ public class Display extends JFrame {
     }
 
     public EntryContainer getSelectedContainer() {
-        TreePath path = tree.getSelectionModel().getLeadSelectionPath();
+        TreePath path = tree.getSelectionPath();
         Object lastOb = path == null ? null : path.getLastPathComponent();
         EntryContainer retour = lastOb != null && lastOb instanceof EntryContainer ? (EntryContainer) lastOb : (EntryContainer) tree.getModel().getRoot();
         return retour;
     }
 
     public void updateTree() {
-        tree.expandRow(0);
+        tree.expandPath(tree.getSelectionPath());
         tree.revalidate();
     }
 

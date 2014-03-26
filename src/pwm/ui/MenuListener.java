@@ -27,6 +27,8 @@ public class MenuListener implements ActionListener {
                 
             //edit
             case "createcategory": controller.createCategory(); break;
+            case "editcategory": controller.editCategory(); break;
+            case "deletecategory": controller.removeCategory(); break;
 
             default:
             System.err.println(action);

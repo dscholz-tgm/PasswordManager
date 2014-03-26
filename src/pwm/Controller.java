@@ -4,8 +4,11 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
+import static javax.swing.JOptionPane.OK_OPTION;
 import static javax.swing.JOptionPane.PLAIN_MESSAGE;
+import static javax.swing.JOptionPane.WARNING_MESSAGE;
 import pwm.profilemodel.Category;
+import pwm.profilemodel.EntryContainer;
 import pwm.profilemodel.RootEntry;
 import pwm.ui.Display;
 import pwm.ui.rendering.ReloadableButton;
@@ -56,6 +59,17 @@ public class Controller {
         if(localizedMessage == null) localizedMessage = message;
         return JOptionPane.showInputDialog(display, localizedMessage, message + ".title", messagetype);
     }
+    
+    private int confirmDialog(String message) {
+        return confirmDialog(message, PLAIN_MESSAGE);
+    }
+    
+    private int confirmDialog(String message, int messagetype) {
+        String localizedMessage = assets.getLocalized(message);
+        if(localizedMessage == null) localizedMessage = message;
+        return JOptionPane.showConfirmDialog(display, localizedMessage, message + ".title", JOptionPane.OK_CANCEL_OPTION,messagetype);
+    }
+    
 
     
     //////////
@@ -123,12 +137,46 @@ public class Controller {
      * Invoked when creating a category
      */
     public void createCategory() {
-        String categoryName = inputDialog("create.category");
+        String categoryName = inputDialog("category.create");
         if(categoryName != null && categoryName.length() > 0) {
             Category category = new Category(display.getSelectedContainer(),categoryName);
             tw.nodeInserted(category);
             tw.structureChanged(category);
             display.updateTree();
+        }
+    }
+    
+    /**
+     * Invoked when editing a category
+     */
+    public void editCategory() {
+        EntryContainer ec = display.getSelectedContainer();
+        if(ec instanceof Category) {
+            Category category = ((Category) ec);
+            String newCategoryName = inputDialog("category.edit");
+            if(newCategoryName != null && newCategoryName.length() > 0) {
+                category.setName(newCategoryName);
+                tw.nodeChanged(category);
+                tw.structureChanged(category);
+                display.updateTree();
+            }
+        }
+    }
+    
+    /**
+     * Invoked when removing a category
+     */
+    public void removeCategory() {
+        EntryContainer ec = display.getSelectedContainer();
+        if(ec instanceof Category) {
+            Category category = ((Category) ec);
+            int newCategoryName = confirmDialog("category.remove",WARNING_MESSAGE);
+            if(newCategoryName == OK_OPTION) {
+                category.getParent().getEntries().remove(category);
+                tw.nodeRemoved(category);
+                tw.structureChanged(category);
+                display.updateTree();
+            }
         }
     }
     
