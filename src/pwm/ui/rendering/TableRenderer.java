@@ -11,12 +11,13 @@ import javax.swing.JTable;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.TableCellRenderer;
+import pwm.profilemodel.passwordfields.EntryField;
 
 /**
  * Class for rendering the Table
  *
  * @author Dominik Scholz
- * @version 0.1
+ * @version 0.2
  */
 public class TableRenderer implements TableCellRenderer {
     
@@ -34,7 +35,9 @@ public class TableRenderer implements TableCellRenderer {
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-        String text = (String) value;
+        String text = "";
+        if(value instanceof EntryField) text = ((EntryField) value).getDisplayValue();
+        else if(value instanceof String) text = (String) value;
         JPanel comp = new JPanel(layout);
         comp.setBorder(border);
         JLabel lab = new JLabel(text);

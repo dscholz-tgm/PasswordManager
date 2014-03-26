@@ -46,6 +46,7 @@ public class PWMTable extends JPanel {
         table.setDefaultRenderer(Object.class, new TableRenderer());
         table.setDragEnabled(false);
         table.getTableHeader().setReorderingAllowed(false);
+        table.addMouseListener(new PasswordDisplayListener());
         
         JScrollPane scrollPane = new JScrollPane(table) {
             @Override

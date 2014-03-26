@@ -11,7 +11,7 @@ import pwm.profilemodel.ProfileEntry;
  * Wrapper for the table model
  * 
  * @author Dominik Scholz
- * @version 0.2
+ * @version 0.3
  */
 public class TableWrapper implements TableModel {
     
@@ -50,7 +50,7 @@ public class TableWrapper implements TableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         ProfileEntry entry = category.getEntries().get(rowIndex);
-        if(entry instanceof PasswordEntry) return ((PasswordEntry) entry).getEntryfields().get(columnIndex).getDisplayValue();
+        if(entry instanceof PasswordEntry) return ((PasswordEntry) entry).getEntryfields().get(columnIndex);
         if(entry instanceof Category) return columnIndex == 0 ? "Category: " + ((Category) entry).getName() :"";
         return "";
     }
