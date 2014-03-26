@@ -4,13 +4,14 @@ import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 import pwm.profilemodel.EntryContainer;
-import pwm.profilemodel.PasswordEntry;
 import pwm.profilemodel.ProfileEntry;
 import pwm.profilemodel.RootEntry;
 
 /**
- * Wrapper for a tree model
- * @author Dominik
+ * Wrapper for the tree model
+ * 
+ * @author Dominik Scholz
+ * @version 0.2
  */
 public class TreeWrapper implements TreeModel {
     

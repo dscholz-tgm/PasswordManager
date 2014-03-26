@@ -39,8 +39,8 @@ public class TreeRenderer implements TreeCellRenderer {
 
     @Override
     public Component getTreeCellRendererComponent(JTree tree, Object value, boolean selected, boolean expanded, boolean leaf, int row, boolean hasFocus) {
-        EntryContainer container = (EntryContainer) value;
         JPanel comp = new JPanel(layout);
+        EntryContainer container = (EntryContainer) value;
         comp.setBorder(border);
         JLabel lab = new JLabel(container.getName());
         lab.setFont(font);

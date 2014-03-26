@@ -2,11 +2,9 @@ package pwm.ui;
 
 import pwm.ui.rendering.PWMColors;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
@@ -27,7 +25,7 @@ import pwm.ui.rendering.TreeWrapper;
  * The display of the manager
  *
  * @author Dominik
- * @version 0.3
+ * @version 0.4
  */
 public class Display extends JFrame {
 
@@ -64,17 +62,18 @@ public class Display extends JFrame {
         }
         JTree tree = new JTree();
         JScrollPane treePanel = new JScrollPane();
-        JPanel rightPanel = new TablePanel(assets);
+        PWMTable rightPanel = new PWMTable(assets);
         JPanel footer = new PWMFooter(assets);
 
         RootEntry re = testTree();
-        tree.setModel(new TreeWrapper(re));
-
+        tree.setModel(null);
+        
         //Modifying
         tree.setRootVisible(false);
         tree.setShowsRootHandles(true);
         tree.setBackground(PWMColors.TREE_COLOR);
         tree.setCellRenderer(new TreeRenderer());
+        tree.addTreeSelectionListener(new CategorySelectListener(rightPanel));
         treePanel.setViewportView(tree);
         treePanel.setMinimumSize(new Dimension(160,160));
         centerPanel.setDividerLocation(160);

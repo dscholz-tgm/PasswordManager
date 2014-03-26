@@ -1,5 +1,6 @@
 package pwm.ui;
 
+import pwm.ui.rendering.TableWrapper;
 import java.awt.BorderLayout;
 import pwm.ui.rendering.PWMColors;
 import java.awt.Color;
@@ -14,6 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import pwm.Assets;
+import pwm.profilemodel.EntryContainer;
 import pwm.ui.rendering.TableRenderer;
 
 /**
@@ -22,30 +24,22 @@ import pwm.ui.rendering.TableRenderer;
  * @author Dominik Scholz
  * @version 0.2
  */
-public class TablePanel extends JPanel {
+public class PWMTable extends JPanel {
 
     private Assets assets;
     private BufferedImage background;
     private BufferedImage buffer;
     private JTable table;
+    private TableWrapper model;
 
-    public TablePanel(Assets assets) {
+    public PWMTable(Assets assets) {
         super(new BorderLayout());
         this.assets = assets;
 
         this.setBackground(PWMColors.BODY_COLOR);
 
-        String[] columnNames = {"Title","Username","Password","Website"};
-
-        Object[][] data = {
-            {"Google", "mailmanXx@gmail.com", "admin", "google.com"},
-            {"elearning", "mmuster", "Password", "elearning.tgm.ac.at"},
-            {"Reddit", "TheManWithTheSafe", "12848963478128408", "reddit.com"},
-            {"Imgur", "BananaLama", "o.O.o.O", "imgur.com"},
-            {"Twitter", "Tweetbot", "birdTWeTx", "twitter.com"},
-        };
-
-        table = new JTable(data, columnNames);
+        model = new TableWrapper();
+        table = new JTable(model);
         table.setOpaque(true);
         table.setBackground(new Color(0,0,0,0));
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -97,6 +91,10 @@ public class TablePanel extends JPanel {
         g.setColor(backgroundtrans);
         g.fillRect(0, 0, this.background.getWidth(), this.background.getHeight());
         g.dispose();
+    }
+
+    public void updateModel(EntryContainer container) {
+        model.setContainer(container);
     }
 
 }
