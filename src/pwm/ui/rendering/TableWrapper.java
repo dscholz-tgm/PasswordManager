@@ -1,8 +1,9 @@
 package pwm.ui.rendering;
 
+import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
-import pwm.profilemodel.EntryContainer;
+import pwm.profilemodel.Category;
 
 /**
  * Wrapper for the table model
@@ -12,23 +13,24 @@ import pwm.profilemodel.EntryContainer;
  */
 public class TableWrapper implements TableModel {
     
-    private EntryContainer container;
+    private Category container;
+    private TableModelListener listener;
     
     public TableWrapper() {
     }
     
-    public void setContainer(EntryContainer category) {
+    public void setContainer(Category category) {
         this.container = container;
     }
 
     @Override
     public int getRowCount() {
-        return 0;
+        return container.getEntries().size();
     }
 
     @Override
     public int getColumnCount() {
-        return 0;
+        return 4;
     }
 
     @Override
@@ -57,10 +59,16 @@ public class TableWrapper implements TableModel {
 
     @Override
     public void addTableModelListener(TableModelListener l) {
+        listener = l;
     }
 
     @Override
     public void removeTableModelListener(TableModelListener l) {
+        listener = null;
+    }
+    
+    public void tablechanged() {
+        listener.tableChanged(new TableModelEvent(this));
     }
     
 }

@@ -9,6 +9,7 @@ import static javax.swing.JOptionPane.PLAIN_MESSAGE;
 import static javax.swing.JOptionPane.WARNING_MESSAGE;
 import pwm.profilemodel.Category;
 import pwm.profilemodel.EntryContainer;
+import pwm.profilemodel.PasswordEntry;
 import pwm.profilemodel.RootEntry;
 import pwm.ui.Display;
 import pwm.ui.rendering.ReloadableButton;
@@ -159,6 +160,7 @@ public class Controller {
                 tw.nodeChanged(category);
                 tw.structureChanged(category);
                 display.updateTree();
+                category.addEntry(new PasswordEntry(category, "pw"));
             }
         }
     }

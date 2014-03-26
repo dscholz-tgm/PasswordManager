@@ -3,11 +3,12 @@ package pwm.profilemodel.passwordfields;
 /**
  * A generic Password-Field
  *
- * @author Adrian Bergler
- * @version 0.1
+ * @author Adrian Bergler, Dominik Scholz
+ * @version 0.2
  */
 public abstract class EntryField {
 
+    private static final String ENTRYNAME = "entryfield.";
     protected String value;
 
     public EntryField(String value) {
@@ -17,11 +18,17 @@ public abstract class EntryField {
     public String getValue() {
         return value;
     }
+    
+    public String getDisplayValue() {
+        return value;
+    }
 
     public void setValue(String value) {
         this.value = value;
     }
-
-    public abstract byte[] getType();
+    
+    public static String getName(String name) {
+        return ENTRYNAME + name;
+    }
 
 }

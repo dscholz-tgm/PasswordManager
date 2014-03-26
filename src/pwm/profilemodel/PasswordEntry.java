@@ -5,12 +5,15 @@ import java.util.List;
 
 import pwm.profilemodel.passwordfields.EntryField;
 import pwm.profilemodel.passwordfields.PasswordField;
+import pwm.profilemodel.passwordfields.TitleField;
+import pwm.profilemodel.passwordfields.UsernameField;
+import pwm.profilemodel.passwordfields.WebsiteField;
 
 /**
  * A Password-Entry
  *
  * @author Adrian Bergler, Dominik Scholz
- * @version 0.3
+ * @version 0.4
  */
 public class PasswordEntry implements ProfileEntry {
 
@@ -18,6 +21,8 @@ public class PasswordEntry implements ProfileEntry {
      * Random generated serialID
      */
     private static final long serialVersionUID = 5035181717357532638L;
+    
+    private static final EntryField[] tableFields = new EntryField[]{new TitleField(""), new UsernameField(""), new PasswordField(""),new WebsiteField("")};
     
     private EntryContainer parent;
     private List<EntryField> entryfields = new ArrayList<>();

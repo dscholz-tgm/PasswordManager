@@ -15,14 +15,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import pwm.Assets;
-import pwm.profilemodel.EntryContainer;
+import pwm.profilemodel.Category;
 import pwm.ui.rendering.TableRenderer;
 
 /**
  * The table panel, which shows the different password entries
  *
  * @author Dominik Scholz
- * @version 0.2
+ * @version 0.3
  */
 public class PWMTable extends JPanel {
 
@@ -93,7 +93,7 @@ public class PWMTable extends JPanel {
         g.dispose();
     }
 
-    public void updateModel(EntryContainer container) {
+    public void updateModel(Category container) {
         model.setContainer(container);
     }
 

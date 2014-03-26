@@ -3,13 +3,13 @@ package pwm.ui;
 import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-import pwm.profilemodel.EntryContainer;
+import pwm.profilemodel.Category;
 
 /**
  * Listener for the selection of a category in the tree menu
  * 
  * @author Dominik Scholz
- * @version 0.1
+ * @version 0.2
  */
 public class CategorySelectListener implements TreeSelectionListener {
 
@@ -23,7 +23,7 @@ public class CategorySelectListener implements TreeSelectionListener {
     public void valueChanged(TreeSelectionEvent e) {
         JTree tree = (JTree) e.getSource();
         Object ob = tree.getLastSelectedPathComponent();
-        if(ob != null && ob instanceof EntryContainer) table.updateModel((EntryContainer) ob);
+        if(ob != null && ob instanceof Category) table.updateModel((Category) ob);
     }
     
 }
