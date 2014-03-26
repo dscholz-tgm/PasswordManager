@@ -13,7 +13,7 @@ import pwm.profilemodel.passwordfields.WebsiteField;
  * A Password-Entry
  *
  * @author Adrian Bergler, Dominik Scholz
- * @version 0.4
+ * @version 0.5
  */
 public class PasswordEntry implements ProfileEntry {
 
@@ -27,9 +27,12 @@ public class PasswordEntry implements ProfileEntry {
     private EntryContainer parent;
     private List<EntryField> entryfields = new ArrayList<>();
 
-    public PasswordEntry(EntryContainer parent, String password) {
+    public PasswordEntry(EntryContainer parent, String title, String username, String password, String website) {
         setParent(parent);
-        addEntry(new PasswordField(password));
+        addEntryField(new TitleField(title));
+        addEntryField(new UsernameField(username));
+        addEntryField(new PasswordField(password));
+        addEntryField(new WebsiteField(website));
     }
     
     @Override
@@ -41,17 +44,16 @@ public class PasswordEntry implements ProfileEntry {
         parent.addEntry(this);
     }
 
-
     public List<EntryField> getEntryfields() { return entryfields;  }
     public void setEntryfields(List<EntryField> entryfields) { this.entryfields = entryfields; }
     
-    
     /**
      * Adds an field to the entryfields
+     * 
      * @param field the field which should be added
      * @return if the adding was successful
      */
-    public boolean addEntry(EntryField field) { 
+    public boolean addEntryField(EntryField field) { 
         return entryfields.add(field); 
     }
     

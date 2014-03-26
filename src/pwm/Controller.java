@@ -160,7 +160,8 @@ public class Controller {
                 tw.nodeChanged(category);
                 tw.structureChanged(category);
                 display.updateTree();
-                category.addEntry(new PasswordEntry(category, "pw"));
+                new PasswordEntry(category, "Hallo", "hasdas", "ada", "adadadadad");
+                new PasswordEntry(category, "2342344423", "4234234234", "13131331", "213131313");
             }
         }
     }
