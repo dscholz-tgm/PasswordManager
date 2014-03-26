@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Specifies a class which is capable of containing entries
  * @author Dominik Scholz
- * @version 0.2
+ * @version 0.3
  */
 public interface EntryContainer extends Serializable {
     
@@ -27,4 +27,11 @@ public interface EntryContainer extends Serializable {
      * @return the name
      */
     public String getName();
+
+    /**
+     * Returns a list of entries from the container type,
+     * may return an empty list
+     * @return the list
+     */
+    public List<EntryContainer> getContainerEntries();
 }

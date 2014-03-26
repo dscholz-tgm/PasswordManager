@@ -18,7 +18,7 @@ import pwm.utils.PWMCharset;
  * A Profile which contains all Passwords
  * 
  * @author Adrian Bergler, Dominik Scholz
- * @version 0.4
+ * @version 0.5
  */
 public class Profile {
 
@@ -47,7 +47,10 @@ public class Profile {
      */
     public Profile(String masterkey) {
         this.key = masterkey.getBytes(PWMCharset.get());
+        profilemodel = new RootEntry();
     }
+    
+    public RootEntry getRootEntry() { return profilemodel; }
 
     /**
      * Encrypts the profilemodel and saves it to the file

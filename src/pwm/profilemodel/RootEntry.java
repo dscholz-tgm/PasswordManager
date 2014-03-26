@@ -7,7 +7,7 @@ import java.util.List;
  * Represents the top piece of the profilemodel
  * 
  * @author Dominik Scholz
- * @version 0.3
+ * @version 0.4
  */
 public class RootEntry implements EntryContainer {
     
@@ -29,6 +29,17 @@ public class RootEntry implements EntryContainer {
     @Override
     public String getName() {
         return "root";
+    }
+
+    /**
+     * Dirty, please remove in future versions!
+     * @return the entrycontainerlist
+     */
+    @Override
+    public List<EntryContainer> getContainerEntries() {
+        List<EntryContainer> containerEntries = new ArrayList<>();
+        for(ProfileEntry pe : entries) if(pe instanceof Category) containerEntries.add((Category) pe);
+        return containerEntries; 
     }
     
 }

@@ -5,7 +5,11 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.PLAIN_MESSAGE;
+import pwm.profilemodel.Category;
+import pwm.profilemodel.RootEntry;
 import pwm.ui.Display;
+import pwm.ui.rendering.ReloadableButton;
+import pwm.ui.rendering.TreeWrapper;
 
 /**
  * Handles the interactions
@@ -17,6 +21,8 @@ public class Controller {
 
     private Assets assets;
     private Display display;
+    private RootEntry root;
+    private TreeWrapper tw;
     
     public Controller(Assets assets) {
         this.assets = assets;
@@ -25,6 +31,7 @@ public class Controller {
     public void register(Display display) {
         this.display = display;
     }
+    
     
     //////////
     // Window Helper
@@ -50,6 +57,7 @@ public class Controller {
         return JOptionPane.showInputDialog(display, localizedMessage, message + ".title", messagetype);
     }
 
+    
     //////////
     // Profile
     //////////
@@ -59,7 +67,7 @@ public class Controller {
      */
     public void newProfile() {
         String masterkey = inputDialog("new.masterkey");
-        if(masterkey != null && masterkey.length() > 0) new Profile(masterkey);
+        if(masterkey != null && masterkey.length() > 0) loadProfile(new Profile(masterkey));
     }
     
     /**
@@ -77,7 +85,7 @@ public class Controller {
                 String masterkey = inputDialog("new.masterkey");
                 if(masterkey != null && masterkey.length() > 0) {
                     try {
-                        new Profile(masterkey,file);
+                        loadProfile(new Profile(masterkey,file));
                     } catch (PWMException ex) {
                         //couldn't read or decrypt
                         messageDialog(ex.getMessage(),ERROR_MESSAGE);
@@ -86,6 +94,18 @@ public class Controller {
             } else messageDialog("open.wrongfile",ERROR_MESSAGE);
         }
     }
+    
+    
+    /**
+     * Invoked when successfully created a profile
+     * 
+     * @param profile the profile which was created
+     */
+    private void loadProfile(Profile profile) {
+        ReloadableButton.setAllEnabled(true);
+        root = profile.getRootEntry();
+        tw = display.setTree(root);
+    }
 
     /**
      * Invoked when closing the application
@@ -93,4 +113,23 @@ public class Controller {
     public void close() {
         if(JOptionPane.showConfirmDialog(null, assets.getLocalized("close.dialog"), assets.getLocalized("close.title"), JOptionPane.YES_NO_OPTION) == 0) System.exit(0);
     }
+    
+    
+    //////////
+    // Edit
+    //////////
+    
+    /**
+     * Invoked when creating a category
+     */
+    public void createCategory() {
+        String categoryName = inputDialog("create.category");
+        if(categoryName != null && categoryName.length() > 0) {
+            Category category = new Category(display.getSelectedContainer(),categoryName);
+            tw.nodeInserted(category);
+            tw.structureChanged(category);
+            display.updateTree();
+        }
+    }
+    
 }

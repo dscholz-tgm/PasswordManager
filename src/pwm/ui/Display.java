@@ -2,6 +2,7 @@ package pwm.ui;
 
 import pwm.ui.rendering.PWMColors;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -12,11 +13,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JToolBar;
 import javax.swing.JTree;
+import javax.swing.event.TreeModelEvent;
 import javax.swing.plaf.SplitPaneUI;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
+import javax.swing.tree.TreePath;
 import pwm.Assets;
 import pwm.Controller;
-import pwm.profilemodel.Category;
+import pwm.profilemodel.EntryContainer;
 import pwm.profilemodel.RootEntry;
 import pwm.ui.rendering.TreeRenderer;
 import pwm.ui.rendering.TreeWrapper;
@@ -31,6 +34,7 @@ public class Display extends JFrame {
 
     private Assets assets;
     private Controller controller;
+    private JTree tree;
 
     public Display(Controller controller, Assets assets, int width, int height) {
         super(assets.getLocalized("windowname"));
@@ -60,17 +64,16 @@ public class Display extends JFrame {
         if (ui instanceof BasicSplitPaneUI) {
             ((BasicSplitPaneUI) ui).getDivider().setBorder(null);
         }
-        JTree tree = new JTree();
+        tree = new JTree();
         JScrollPane treePanel = new JScrollPane();
         PWMTable rightPanel = new PWMTable(assets);
         JPanel footer = new PWMFooter(assets);
 
-        RootEntry re = testTree();
         tree.setModel(null);
         
         //Modifying
-        tree.setRootVisible(false);
-        tree.setShowsRootHandles(true);
+//        tree.setRootVisible(false);
+//        tree.setShowsRootHandles(true);
         tree.setBackground(PWMColors.TREE_COLOR);
         tree.setCellRenderer(new TreeRenderer());
         tree.addTreeSelectionListener(new CategorySelectListener(rightPanel));
@@ -100,23 +103,22 @@ public class Display extends JFrame {
     private void updateLanguage() {
     }
 
-    private RootEntry testTree() {
-        RootEntry re = new RootEntry();
-        Category cat0 = new Category(re);
-        Category cat1 = new Category(re);
-        Category cat2 = new Category(re);
-        Category cat3 = new Category(re);
+    public TreeWrapper setTree(RootEntry re) {
+        TreeWrapper tr = new TreeWrapper(re);
+        tree.setModel(tr);
+        return tr;
+    }
 
-        Category cat0_0 = new Category(cat0);
-        Category cat0_1 = new Category(cat0);
+    public EntryContainer getSelectedContainer() {
+        TreePath path = tree.getSelectionModel().getLeadSelectionPath();
+        Object lastOb = path == null ? null : path.getLastPathComponent();
+        EntryContainer retour = lastOb != null && lastOb instanceof EntryContainer ? (EntryContainer) lastOb : (EntryContainer) tree.getModel().getRoot();
+        return retour;
+    }
 
-        Category cat1_0 = new Category(cat1);
-        Category cat1_1 = new Category(cat1);
-        Category cat1_2 = new Category(cat1);
-
-        Category cat1_1_1 = new Category(cat1_1);
-        Category cat1_1_2 = new Category(cat1_1);
-        return re;
+    public void updateTree() {
+        tree.expandRow(0);
+        tree.revalidate();
     }
 
 }

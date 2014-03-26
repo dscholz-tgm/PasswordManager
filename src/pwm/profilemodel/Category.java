@@ -7,7 +7,7 @@ import java.util.List;
  * Category which stores other entries
  *
  * @author Adrian Bergler, Dominik Scholz
- * @version 0.5
+ * @version 0.6
  */
 public class Category implements ProfileEntry, EntryContainer {
     
@@ -65,6 +65,17 @@ public class Category implements ProfileEntry, EntryContainer {
 
     @Override
     public EntryContainer getParent() {  return parent; }
+    
+    /**
+     * Dirty, please remove in future versions!
+     * @return the entrycontainerlist
+     */
+    @Override
+    public List<EntryContainer> getContainerEntries() { 
+        List<EntryContainer> containerEntries = new ArrayList<>();
+        for(ProfileEntry pe : entries) if(pe instanceof Category) containerEntries.add((Category) pe);
+        return containerEntries; 
+    }
 
     @Override
     public void setParent(EntryContainer parent) { 

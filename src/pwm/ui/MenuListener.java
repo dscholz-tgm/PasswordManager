@@ -8,7 +8,7 @@ import pwm.Controller;
  * Listens to the menu bar items
  *
  * @author Dominik Scholz
- * @version 0.2
+ * @version 0.3
  */
 public class MenuListener implements ActionListener {
 
@@ -19,15 +19,17 @@ public class MenuListener implements ActionListener {
     }
 
     public void menuAction(String action) {
-        System.out.println(action);
         switch (action) {
             //profile
             case "new": controller.newProfile(); break;
             case "open": controller.openProfile();  break;
             case "close": controller.close(); break;
+                
+            //edit
+            case "createcategory": controller.createCategory(); break;
 
             default:
-            //silence and friendly :3
+            System.err.println(action);
         }
     }
 
