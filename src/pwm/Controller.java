@@ -46,9 +46,7 @@ public class Controller {
     }
     
     private void messageDialog(String message, int messagetype) {
-        String localizedMessage = assets.getLocalized(message);
-        if(localizedMessage == null) localizedMessage = message;
-        JOptionPane.showMessageDialog(display, localizedMessage, message + ".title", messagetype);
+        JOptionPane.showMessageDialog(display, assets.getLocalized(message), assets.getLocalized(message + ".title"), messagetype);
     }
     
     private String inputDialog(String message) {
@@ -56,9 +54,7 @@ public class Controller {
     }
     
     private String inputDialog(String message, int messagetype) {
-        String localizedMessage = assets.getLocalized(message);
-        if(localizedMessage == null) localizedMessage = message;
-        return JOptionPane.showInputDialog(display, localizedMessage, message + ".title", messagetype);
+        return JOptionPane.showInputDialog(display, assets.getLocalized(message),  assets.getLocalized(message + ".title"), messagetype);
     }
     
     private int confirmDialog(String message) {
@@ -68,7 +64,7 @@ public class Controller {
     private int confirmDialog(String message, int messagetype) {
         String localizedMessage = assets.getLocalized(message);
         if(localizedMessage == null) localizedMessage = message;
-        return JOptionPane.showConfirmDialog(display, localizedMessage, message + ".title", JOptionPane.OK_CANCEL_OPTION,messagetype);
+        return JOptionPane.showConfirmDialog(display, assets.getLocalized(message), assets.getLocalized(message + ".title"), JOptionPane.OK_CANCEL_OPTION,messagetype);
     }
     
 

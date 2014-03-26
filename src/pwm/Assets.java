@@ -138,7 +138,8 @@ public class Assets {
      * @return the value to the given key
      */
     public String getLocalized(String key) {
-        return key == null ? null : language.getProperty(key);
+        String local = key == null ? null : language.getProperty(key);
+        return local == null ? key : local;
     }
 
     /**
@@ -149,7 +150,8 @@ public class Assets {
      * @return the value to the given key
      */
     public String getLocalized(String key, String defaultValue) {
-        return key == null ? null : language.getProperty(key, defaultValue);
+        String local = key == null ? null : language.getProperty(key, defaultValue);
+        return local == null ? key : local;
     }
 
     /**
