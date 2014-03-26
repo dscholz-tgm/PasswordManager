@@ -30,7 +30,6 @@ public class PWMTable extends JPanel {
     private BufferedImage background;
     private BufferedImage buffer;
     private JTable table;
-    private TableWrapper model;
 
     public PWMTable(Assets assets) {
         super(new BorderLayout());
@@ -38,8 +37,7 @@ public class PWMTable extends JPanel {
 
         this.setBackground(PWMColors.BODY_COLOR);
 
-        model = new TableWrapper();
-        table = new JTable(model);
+        table = new JTable(null);
         table.setOpaque(true);
         table.setBackground(new Color(0,0,0,0));
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -94,7 +92,7 @@ public class PWMTable extends JPanel {
     }
 
     public void updateModel(Category container) {
-        model.setContainer(container);
+        table.setModel(new TableWrapper(container));
     }
 
 }

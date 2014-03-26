@@ -4,43 +4,42 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 import pwm.profilemodel.Category;
+import pwm.profilemodel.PasswordEntry;
+import pwm.profilemodel.ProfileEntry;
 
 /**
  * Wrapper for the table model
  * 
  * @author Dominik Scholz
- * @version 0.1
+ * @version 0.2
  */
 public class TableWrapper implements TableModel {
     
-    private Category container;
+    private Category category;
     private TableModelListener listener;
     
-    public TableWrapper() {
+    public TableWrapper(Category category) {
+        this.category = category;
     }
     
-    public void setContainer(Category category) {
-        this.container = container;
-    }
-
     @Override
     public int getRowCount() {
-        return container.getEntries().size();
+        return category.getEntries().size();
     }
 
     @Override
     public int getColumnCount() {
-        return 4;
+        return PasswordEntry.tableFields.length;
     }
 
     @Override
     public String getColumnName(int columnIndex) {
-        return null;
+        return PasswordEntry.tableFields[columnIndex].getName();
     }
 
     @Override
     public Class<?> getColumnClass(int columnIndex) {
-        return null;
+        return PasswordEntry.tableFields[columnIndex].getClass();
     }
 
     @Override
@@ -50,7 +49,10 @@ public class TableWrapper implements TableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        return null;
+        ProfileEntry entry = category.getEntries().get(rowIndex);
+        if(entry instanceof PasswordEntry) return ((PasswordEntry) entry).getEntryfields().get(columnIndex).getDisplayValue();
+        if(entry instanceof Category) return columnIndex == 0 ? "Category: " + ((Category) entry).getName() :"";
+        return "";
     }
 
     @Override

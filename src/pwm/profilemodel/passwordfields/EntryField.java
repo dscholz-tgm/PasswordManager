@@ -1,14 +1,16 @@
 package pwm.profilemodel.passwordfields;
 
+import java.io.Serializable;
+
 /**
  * A generic Password-Field
  *
  * @author Adrian Bergler, Dominik Scholz
- * @version 0.2
+ * @version 0.3
  */
-public abstract class EntryField {
+public abstract class EntryField implements Serializable {
 
-    private static final String ENTRYNAME = "entryfield.";
+    private static final String NAME = "entryfield.";
     protected String value;
 
     public EntryField(String value) {
@@ -27,8 +29,10 @@ public abstract class EntryField {
         this.value = value;
     }
     
-    public static String getName(String name) {
-        return ENTRYNAME + name;
+    public static String receiveName(String name) {
+        return NAME + name;
     }
+    
+    public String getName() { return NAME; }
 
 }

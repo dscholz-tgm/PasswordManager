@@ -22,7 +22,7 @@ public class PasswordEntry implements ProfileEntry {
      */
     private static final long serialVersionUID = 5035181717357532638L;
     
-    private static final EntryField[] tableFields = new EntryField[]{new TitleField(""), new UsernameField(""), new PasswordField(""),new WebsiteField("")};
+    public static final EntryField[] tableFields = new EntryField[]{new TitleField(""), new UsernameField(""), new PasswordField(""),new WebsiteField("")};
     
     private EntryContainer parent;
     private List<EntryField> entryfields = new ArrayList<>();

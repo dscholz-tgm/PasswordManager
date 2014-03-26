@@ -8,11 +8,14 @@ package pwm.profilemodel.passwordfields;
  */
 public class PasswordField extends EntryField {
     
-    private static final String NAME = getName("password");
+    private static final String NAME = receiveName("password");
 
     public PasswordField(String value) {
         super(value);
     }
+    
+    @Override
+    public String getName() { return NAME; }
     
     @Override
     public String getDisplayValue() {
