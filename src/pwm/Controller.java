@@ -205,7 +205,7 @@ public class Controller {
         String passwordTitle = inputDialog("password.create.title");
         String passwordUsername = inputDialog("password.create.username");
         String passwordPassword = inputDialog("password.create.password");
-        String passwordWebsite = inputDialog("password.create.webiste");
+        String passwordWebsite = inputDialog("password.create.website");
         
         if(passwordTitle == null || passwordUsername == null || passwordPassword == null || passwordWebsite == null) return;
         

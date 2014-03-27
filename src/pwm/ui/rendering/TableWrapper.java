@@ -3,6 +3,7 @@ package pwm.ui.rendering;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
+import pwm.Assets;
 import pwm.profilemodel.Category;
 import pwm.profilemodel.PasswordEntry;
 import pwm.profilemodel.ProfileEntry;
@@ -34,7 +35,7 @@ public class TableWrapper implements TableModel {
 
     @Override
     public String getColumnName(int columnIndex) {
-        return PasswordEntry.tableFields[columnIndex].getName();
+        return Assets.get().getLocalized(PasswordEntry.tableFields[columnIndex].getName());
     }
 
     @Override
