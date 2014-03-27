@@ -1,8 +1,6 @@
 package pwm;
 
 import java.io.File;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
@@ -96,13 +94,13 @@ public class Controller {
             //has right ending
             if(file.getPath().endsWith(Profile.FILE_ENDING)) {
                 //get key
-                String masterkey = inputDialog("new.masterkey");
+                String masterkey = inputDialog("open.masterkey");
                 if(masterkey != null && masterkey.length() > 0) {
                     try {
                         loadProfile(new Profile(masterkey,file));
                     } catch (PWMException ex) {
                         //couldn't read or decrypt
-                        messageDialog(ex.getMessage(),ERROR_MESSAGE);
+                        messageDialog("open.wrongkey",ERROR_MESSAGE);
                     }
                 }
             } else messageDialog("open.wrongfile",ERROR_MESSAGE);
