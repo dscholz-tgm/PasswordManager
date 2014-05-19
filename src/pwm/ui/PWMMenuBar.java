@@ -23,7 +23,8 @@ import pwm.Assets;
 public final class PWMMenuBar extends JMenuBar {
     
     private final Assets assets;
-    private JMenu pointer;
+    private JMenu[] pointer = new JMenu[5];
+    private int jMenuCounter;
     private final String identifier = "menubar";
     private final ActionListener menuListener;
 
@@ -31,8 +32,9 @@ public final class PWMMenuBar extends JMenuBar {
         super();
         this.menuListener = menuListener;
         this.assets = assets;
+        this.jMenuCounter = 0;
         
-        createMenu("profile");
+        pointer[0] = createMenu("profile");
             createItem("new", true, KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_MASK));
             createItem("open", true, KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_MASK));
             separator();
@@ -41,11 +43,11 @@ public final class PWMMenuBar extends JMenuBar {
             separator();
             createItem("changemasterkey", false);
             createItem("changeencryptfile", false);
-            
             separator();
             createItem("close", true, KeyStroke.getKeyStroke(KeyEvent.VK_F4, KeyEvent.ALT_MASK));
-            
-        createMenu("edit");
+        ++jMenuCounter;    
+        
+        pointer[1] = createMenu("edit");
             createItem("createcategory", false);
             createItem("editcategory", false);
             createItem("deletecategory", false);
@@ -55,22 +57,25 @@ public final class PWMMenuBar extends JMenuBar {
             createItem("deleteentry", false);
             separator();
             createItem("find", false, KeyStroke.getKeyStroke(KeyEvent.VK_F, KeyEvent.CTRL_MASK));
-        
-        createMenu("view");
+        ++jMenuCounter; 
+            
+        pointer[2] = createMenu("view");
             createItem("changelanguage");
             separator();
             createItem("expandhierarchy", false);
             createItem("collapsehierarchy", false);
-        
-        createMenu("tools");
+        ++jMenuCounter; 
+            
+        pointer[3] = createMenu("tools");
             createItem("importpwlist", false);
             createItem("exportpwlist", false);
             separator();
             createItem("passwordgen");
             separator();
             createItem("options");
+        ++jMenuCounter;   
             
-        createMenu("help");
+        pointer[4] = createMenu("help");
             createItem("help", true, KeyStroke.getKeyStroke(KeyEvent.VK_F1,0));
             createItem("update");
             separator();
@@ -87,7 +92,7 @@ public final class PWMMenuBar extends JMenuBar {
         menu.setName(fullIdentifier);
         menu.setForeground(PWMColors.TEXT_2);
         this.add(menu);
-        pointer = menu;
+        pointer[jMenuCounter] = menu;
         return menu;
     }
     
@@ -96,11 +101,11 @@ public final class PWMMenuBar extends JMenuBar {
     }
     
     public JMenuItem createItem(String identifier, boolean enabled) {
-        String fullIdentifier = pointer.getName() + "." + identifier;
+        String fullIdentifier = getPointer(jMenuCounter).getName() + "." + identifier;
         JMenuItem item = ReloadableButton.register(fullIdentifier, new JMenuItem(), enabled);
         item.setActionCommand(identifier);
         item.addActionListener(menuListener);
-        pointer.add(item);
+        getPointer(jMenuCounter).add(item);
         return item;
     }
     
@@ -111,7 +116,7 @@ public final class PWMMenuBar extends JMenuBar {
     }
     
     private void separator() {
-        pointer.addSeparator();
+        getPointer(jMenuCounter).addSeparator();
     }
     
     @Override
@@ -126,4 +131,17 @@ public final class PWMMenuBar extends JMenuBar {
         g.fillRect(0, 0, getWidth(), getHeight()/2);
     }
 
+    /**
+     * @return the pointer at specified index
+     */
+    public JMenu getPointer(int index) {
+        return pointer[index];
+    }
+    
+    /**
+     * @return the pointer
+     */
+    public JMenu[] getPointers() {
+        return pointer;
+    }
 }

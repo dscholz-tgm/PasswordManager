@@ -10,6 +10,8 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -48,7 +50,7 @@ public class PWMTable extends JPanel {
         table.getTableHeader().setReorderingAllowed(false);
         table.addMouseListener(new PasswordDisplayListener());
         
-        JScrollPane scrollPane = new JScrollPane(table) {
+        JScrollPane scrollPane = new JScrollPane(getTable()) {
             @Override
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -76,8 +78,12 @@ public class PWMTable extends JPanel {
             g2.drawImage(background, width/2 - a/2, height/2 - a/2, a, a, this);
             g2.dispose();
         }
+        try {
+            Thread.sleep(30);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(PWMTable.class.getName()).log(Level.SEVERE, null, ex);
+        }
         g.drawImage(buffer, 0, 0, buffer.getWidth(), buffer.getHeight(), this);
-        
     }
 
     private void loadBackground(Image background) {
@@ -93,7 +99,14 @@ public class PWMTable extends JPanel {
     }
 
     public void updateModel(Category container) {
-        table.setModel(new TableWrapper(container));
+        getTable().setModel(new TableWrapper(container));
+    }
+
+    /**
+     * @return the table
+     */
+    public JTable getTable() {
+        return table;
     }
 
 }

@@ -8,6 +8,7 @@ import static javax.swing.JOptionPane.OK_OPTION;
 import static javax.swing.JOptionPane.PLAIN_MESSAGE;
 import static javax.swing.JOptionPane.WARNING_MESSAGE;
 import javax.swing.JPasswordField;
+import javax.swing.table.JTableHeader;
 import pwm.profilemodel.Category;
 import pwm.profilemodel.EntryContainer;
 import pwm.profilemodel.PasswordEntry;
@@ -65,11 +66,12 @@ public class Controller {
 
     private String maskedConfirmDialog(String message) {
         pf = new JPasswordField();
-        int check= JOptionPane.showConfirmDialog(display, pf, assets.getLocalized(message + ".title"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        int check = JOptionPane.showConfirmDialog(display, pf, assets.getLocalized(message + ".title"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
         if (check == JOptionPane.OK_OPTION) {
             String password = new String(pf.getPassword());
-            if (password != null && password.length() > 0)
+            if (password != null && password.length() > 0) {
                 return password;
+            }
         }
         return "";
     }
@@ -99,7 +101,6 @@ public class Controller {
      */
     public void newProfile() {
         String masterkey = maskedConfirmDialog("new.masterkey");
-        System.out.println(masterkey);
         loadProfile(new Profile(masterkey));
     }
 
@@ -300,5 +301,26 @@ public class Controller {
      */
     public void removePassword() {
         //Not implemented jet
+    }
+
+    /**
+     * Invoked
+     * when
+     * changing
+     * the
+     * language
+     */
+    public void changeLanguage() {
+        Object[] selectionValues = {"English", "German(Deutsch)"};
+        String initialSelection = "English";
+        String language;
+        Object selection = JOptionPane.showInputDialog(null, null,
+                assets.getLocalized("menubar.view.changelanguage"), JOptionPane.QUESTION_MESSAGE, null, selectionValues, initialSelection);
+        selection = (String) selection;
+        language = selection.equals("English") ? "en" : "de";
+        assets.setSetting("lang", language);
+        display.updateMenuBar();
+        // TO DO 
+        // change Language of Table Headers
     }
 }

@@ -101,6 +101,17 @@ public class Assets {
     public String getSetting(String key) {
         return settings.getProperty(key);
     }
+    
+    /**
+     * Returns the setting to the given key
+     *
+     * @param key the key to get the value from
+     * @return the value to the given key
+     */
+    public void setSetting(String key, String value) {
+        settings.setProperty(key, value);
+        language = loadProperties(DATA_PATH + "lang_" + settings.getProperty("lang"));
+    }
 
     /**
      * Returns the setting to the given key
@@ -168,5 +179,4 @@ public class Assets {
         }
         return image;
     }
-
 }

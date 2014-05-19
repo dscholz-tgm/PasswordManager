@@ -6,7 +6,9 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -24,16 +26,24 @@ import pwm.ui.rendering.TreeRenderer;
 import pwm.ui.rendering.TreeWrapper;
 
 /**
- * The display of the manager
+ * The
+ * display
+ * of
+ * the
+ * manager
  *
- * @author Dominik
- * @version 0.4
+ * @author
+ * Dominik
+ * @version
+ * 0.4
  */
 public class Display extends JFrame {
 
     private Assets assets;
     private Controller controller;
     private JTree tree;
+    private PWMMenuBar menuBar;
+    private PWMTable rightPanel;
 
     public Display(Controller controller, Assets assets, int width, int height) {
         super(assets.getLocalized("windowname"));
@@ -53,7 +63,7 @@ public class Display extends JFrame {
         this.getContentPane().setBackground(PWMColors.MAIN_COLOR);
 
         //Initializing
-        JMenuBar menuBar = new PWMMenuBar(new MenuListener(controller), assets);
+        menuBar = new PWMMenuBar(new MenuListener(controller), assets);
         JToolBar toolBar = new PWMToolBar(assets);
         JSplitPane centerPanel = new JSplitPane();
         for (Component comp : centerPanel.getComponents()) {
@@ -65,19 +75,19 @@ public class Display extends JFrame {
         }
         tree = new JTree();
         JScrollPane treePanel = new JScrollPane();
-        PWMTable rightPanel = new PWMTable(assets);
+        rightPanel = new PWMTable(assets);
         JPanel footer = new PWMFooter(assets);
 
         tree.setModel(null);
-        
+
         //Modifying
         tree.setRootVisible(false);
         tree.setShowsRootHandles(true);
         tree.setBackground(PWMColors.TREE_COLOR);
         tree.setCellRenderer(new TreeRenderer());
-        tree.addTreeSelectionListener(new CategorySelectListener(rightPanel));
+        tree.addTreeSelectionListener(new CategorySelectListener(getRightPanel()));
         treePanel.setViewportView(tree);
-        treePanel.setMinimumSize(new Dimension(160,160));
+        treePanel.setMinimumSize(new Dimension(160, 160));
         centerPanel.setDividerLocation(160);
         centerPanel.setDividerSize(0);
 
@@ -125,4 +135,28 @@ public class Display extends JFrame {
         //TODO
     }
 
+    public void updateMenuBar() {
+        JMenu[] jm = menuBar.getPointers();
+        int cc;
+        JMenuItem jmi;
+        
+        for (int i = 0; i < jm.length; i++) {
+            jm[i].setText(assets.getLocalized(jm[i].getName()));
+            cc = jm[i].getItemCount();
+            for (int j = 0; j < cc; j++) {
+                jmi = jm[i].getItem(j);
+                if (jmi != null) {
+                    jmi.setText(assets.getLocalized(jm[i].getName() + "." + jmi.getActionCommand()));
+                }
+            }
+        }
+
+    }
+
+    /**
+     * @return the rightPanel
+     */
+    public PWMTable getRightPanel() {
+        return rightPanel;
+    }
 }

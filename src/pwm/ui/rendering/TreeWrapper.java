@@ -93,5 +93,4 @@ public class TreeWrapper implements TreeModel {
         Collections.reverse(parent);
         return new TreeModelEvent(this, parent.toArray());
     }
-    
 }
