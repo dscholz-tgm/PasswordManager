@@ -8,7 +8,7 @@ import static javax.swing.JOptionPane.OK_OPTION;
 import static javax.swing.JOptionPane.PLAIN_MESSAGE;
 import static javax.swing.JOptionPane.WARNING_MESSAGE;
 import javax.swing.JPasswordField;
-import javax.swing.table.JTableHeader;
+import javax.swing.filechooser.FileFilter;
 import pwm.profilemodel.Category;
 import pwm.profilemodel.EntryContainer;
 import pwm.profilemodel.PasswordEntry;
@@ -113,6 +113,8 @@ public class Controller {
      */
     public void openProfile() {
         JFileChooser chooser = new JFileChooser();
+        FileFilter filter1 = new ExtensionFileFilter(".pwmp", new String[]{"pwmp"});
+        chooser.setFileFilter(filter1);
 
         //accepts the file
         if (chooser.showOpenDialog(display) == JFileChooser.APPROVE_OPTION) {
@@ -120,7 +122,7 @@ public class Controller {
             //has right ending
             if (file.getPath().endsWith(Profile.FILE_ENDING)) {
                 //get key
-                String masterkey = inputDialog("open.masterkey");
+                String masterkey = maskedConfirmDialog("open.masterkey");
                 if (masterkey != null && masterkey.length() > 0) {
                     try {
                         loadProfile(new Profile(masterkey, file));
