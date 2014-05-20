@@ -31,6 +31,7 @@ public class MenuListener implements ActionListener {
             case "editcategory": controller.editCategory(); break;
             case "deletecategory": controller.removeCategory(); break;
             case "createentry": controller.createPassword(); break;
+            case "deleteentry": controller.removePassword(); break;
 
             //view
             case "changelanguage": controller.changeLanguage(); break;

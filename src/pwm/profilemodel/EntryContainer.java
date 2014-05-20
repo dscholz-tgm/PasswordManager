@@ -16,6 +16,7 @@ public interface EntryContainer extends Serializable {
      */
     public void addEntry(ProfileEntry entry);
     
+    
     /**
      * Returns a list of all entries contained in this container
      * @return a list af all the contained entries

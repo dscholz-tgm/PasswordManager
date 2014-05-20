@@ -1,16 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package pwm;
 
 import java.io.File;
 import javax.swing.filechooser.FileFilter;
 
 /**
- *
- * @author
- * Samuel
+ * A File Filter for the File Chooser
+ * @author Samuel Schmidt
  */
 public class ExtensionFileFilter extends FileFilter {
 

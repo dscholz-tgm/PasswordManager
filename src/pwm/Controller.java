@@ -1,6 +1,7 @@
 package pwm;
 
 import java.io.File;
+import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
@@ -12,21 +13,17 @@ import javax.swing.filechooser.FileFilter;
 import pwm.profilemodel.Category;
 import pwm.profilemodel.EntryContainer;
 import pwm.profilemodel.PasswordEntry;
+import pwm.profilemodel.ProfileEntry;
 import pwm.profilemodel.RootEntry;
 import pwm.ui.Display;
 import pwm.ui.rendering.ReloadableButton;
 import pwm.ui.rendering.TreeWrapper;
 
 /**
- * Handles
- * the
- * interactions
+ * Handles the interactions
  *
- * @author
- * Dominik
- * Scholz
- * @version
- * 0.2
+ * @author Dominik Scholz, Samuel Schmidt
+ * @version 0.2
  */
 public class Controller {
 
@@ -92,12 +89,7 @@ public class Controller {
     // Profile
     //////////
     /**
-     * Invoked
-     * when
-     * creating
-     * a
-     * new
-     * profile
+     * Invoked when creating a new profile
      */
     public void newProfile() {
         String masterkey = maskedConfirmDialog("new.masterkey");
@@ -105,11 +97,7 @@ public class Controller {
     }
 
     /**
-     * Invoked
-     * when
-     * opening
-     * a
-     * profile
+     * Invoked when opening a profile
      */
     public void openProfile() {
         JFileChooser chooser = new JFileChooser();
@@ -138,34 +126,19 @@ public class Controller {
     }
 
     /**
-     * Invoked
-     * when
-     * successfully
-     * created
-     * a
-     * profile
-     *
-     * @param
-     * profile
-     * the
-     * profile
-     * which
-     * was
-     * created
+     * Invoked when succesfully creating a profile
+     * @param profile
+     * the profile which was created
      */
     private void loadProfile(Profile profile) {
         this.profile = profile;
         ReloadableButton.setAllEnabled(true);
         root = profile.getRootEntry();
-        tw = display.setTree(root);
+        tw = display.setTree(getRoot());
     }
 
     /**
-     * Invoked
-     * when
-     * saving
-     * the
-     * profile
+     * Invoked when saving the profile
      */
     public void saveProfileAs() {
         JFileChooser chooser = new JFileChooser();
@@ -186,11 +159,7 @@ public class Controller {
     }
 
     /**
-     * Invoked
-     * when
-     * closing
-     * the
-     * application
+     * Invoked when closing the application
      */
     public void close() {
         if (JOptionPane.showConfirmDialog(null, assets.getLocalized("close.dialog"), assets.getLocalized("close.title"), JOptionPane.YES_NO_OPTION) == 0) {
@@ -202,11 +171,7 @@ public class Controller {
     // Edit
     //////////
     /**
-     * Invoked
-     * when
-     * creating
-     * a
-     * category
+     * Invoked when creating a category
      */
     public void createCategory() {
         String categoryName = inputDialog("category.create");
@@ -219,11 +184,7 @@ public class Controller {
     }
 
     /**
-     * Invoked
-     * when
-     * editing
-     * a
-     * category
+     * Invoked when editing a category
      */
     public void editCategory() {
         EntryContainer ec = display.getSelectedContainer();
@@ -240,11 +201,7 @@ public class Controller {
     }
 
     /**
-     * Invoked
-     * when
-     * removing
-     * a
-     * category
+     * Invoked when removing a category
      */
     public void removeCategory() {
         EntryContainer ec = display.getSelectedContainer();
@@ -261,11 +218,7 @@ public class Controller {
     }
 
     /**
-     * Invoked
-     * when
-     * creating
-     * a
-     * password
+     * Invoked when creating a password
      */
     public void createPassword() {
         String passwordTitle = inputDialog("password.create.title");
@@ -278,39 +231,36 @@ public class Controller {
         }
 
         EntryContainer cont = display.getSelectedContainer();
-        if (cont != root) {
+        if (cont != getRoot()) {
             new PasswordEntry(display.getSelectedContainer(), passwordTitle, passwordUsername, passwordPassword, passwordWebsite);
         }
     }
 
     /**
-     * Invoked
-     * when
-     * editing
-     * a
-     * password
+     * Invoked when editing a password
      */
     public void editPassword() {
-        //Not implemented jet
+        //Not implemented yet
     }
 
     /**
-     * Invoked
-     * when
-     * removing
-     * a
-     * password
+     * Invoked when removing a password
      */
     public void removePassword() {
-        //Not implemented jet
+        EntryContainer ec = display.getSelectedContainer();
+        ProfileEntry pe = display.getSelectedRow();
+
+        if (ec instanceof Category) {
+            Category category = ((Category) ec);
+            int newEntryName = confirmDialog("entry.remove", WARNING_MESSAGE);
+            if (newEntryName == OK_OPTION) {
+                category.removeEntry(pe);
+            }
+        }
     }
 
     /**
-     * Invoked
-     * when
-     * changing
-     * the
-     * language
+     * Invoked when changing the language
      */
     public void changeLanguage() {
         Object[] selectionValues = {"English", "German(Deutsch)"};
@@ -322,7 +272,14 @@ public class Controller {
         language = selection.equals("English") ? "en" : "de";
         assets.setSetting("lang", language);
         display.updateMenuBar();
-        // TO DO 
-        // change Language of Table Headers
+        display.updateTableHeaders();
+    }
+
+    /**
+     * Returns the root Entry
+     * @return the root
+     */
+    public RootEntry getRoot() {
+        return root;
     }
 }

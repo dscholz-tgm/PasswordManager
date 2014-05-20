@@ -57,4 +57,13 @@ public class PasswordEntry implements ProfileEntry {
         return entryfields.add(field); 
     }
     
+    /**
+     * Adds an field to the entryfields
+     * 
+     * @param field the field which should be added
+     * @return if the adding was successful
+     */
+    public boolean removeEntryField(EntryField field) { 
+        return entryfields.remove(field); 
+    }
 }

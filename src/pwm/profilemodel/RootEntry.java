@@ -41,5 +41,6 @@ public class RootEntry implements EntryContainer {
         for(ProfileEntry pe : entries) if(pe instanceof Category) containerEntries.add((Category) pe);
         return containerEntries; 
     }
+
     
 }

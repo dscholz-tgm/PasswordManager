@@ -5,9 +5,9 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
-import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -16,6 +16,9 @@ import javax.swing.JToolBar;
 import javax.swing.JTree;
 import javax.swing.plaf.SplitPaneUI;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import javax.swing.tree.TreePath;
 import pwm.Assets;
 import pwm.Controller;
@@ -26,16 +29,10 @@ import pwm.ui.rendering.TreeRenderer;
 import pwm.ui.rendering.TreeWrapper;
 
 /**
- * The
- * display
- * of
- * the
- * manager
+ * The display of the manager
  *
- * @author
- * Dominik
- * @version
- * 0.4
+ * @author Dominik Scholz, Samuel Schmidt
+ * @version 0.4
  */
 public class Display extends JFrame {
 
@@ -109,15 +106,16 @@ public class Display extends JFrame {
         this.assets = assets;
     }
 
-    private void updateLanguage() {
-    }
-
     public TreeWrapper setTree(RootEntry re) {
         TreeWrapper tr = new TreeWrapper(re);
         tree.setModel(tr);
         return tr;
     }
 
+    /**
+     * Returns the Selected Container(Category)
+     * @return category
+     */
     public EntryContainer getSelectedContainer() {
         TreePath path = tree.getSelectionPath();
         Object lastOb = path == null ? null : path.getLastPathComponent();
@@ -130,11 +128,21 @@ public class Display extends JFrame {
         tree.revalidate();
     }
 
+    /**
+     * Returns the Selected Profile Entry,
+     * (the row in Password Entries)
+     * @return the Profile Entry
+     */
     public ProfileEntry getSelectedRow() {
-        return null;
-        //TODO
+        int index = rightPanel.getTable().getSelectedRow();
+        EntryContainer kat = getSelectedContainer();
+        List<ProfileEntry> pes = controller.getRoot().getEntries();
+        return pes.get(index);
     }
 
+    /**
+     * Updates the Language of the Menubar
+     */
     public void updateMenuBar() {
         JMenu[] jm = menuBar.getPointers();
         int cc;
@@ -152,11 +160,32 @@ public class Display extends JFrame {
         }
 
     }
+    
+    /**
+     * Updates the Language of the Table Headers
+     */
+    public void updateTableHeaders() {
+        JTableHeader th = rightPanel.getTable().getTableHeader();
+        TableColumnModel tcm = th.getColumnModel();
+        if(tcm.getTotalColumnWidth() != 0){
+            TableColumn tc = tcm.getColumn(0);
+            tc.setHeaderValue(assets.getLocalized("entryfield.title"));
+            tc = tcm.getColumn(1);
+            tc.setHeaderValue(assets.getLocalized("entryfield.username"));
+            tc = tcm.getColumn(2);
+            tc.setHeaderValue(assets.getLocalized("entryfield.password"));
+            tc = tcm.getColumn(3);
+            tc.setHeaderValue(assets.getLocalized("entryfield.website"));
+        }
+    }
 
     /**
      * @return the rightPanel
      */
     public PWMTable getRightPanel() {
         return rightPanel;
+    }
+
+    private void updateLanguage() {
     }
 }

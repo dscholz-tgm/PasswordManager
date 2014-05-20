@@ -87,5 +87,9 @@ public class Category implements ProfileEntry, EntryContainer {
     public void addEntry(ProfileEntry entry) {
         entries.add(entry);
     }
-
+    
+    public void removeEntry(ProfileEntry entry) {
+//        entries.remove(entry);
+        entries.remove(0);
+    }
 }
