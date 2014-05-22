@@ -17,14 +17,14 @@ import pwm.utils.PWMCharset;
 /**
  * A Profile which contains all Passwords
  * 
- * @author Adrian Bergler, Dominik Scholz
- * @version 0.5
+ * @author Adrian Bergler, Dominik Scholz, Samuel Schmidt
+ * @version 0.6
  */
 public class Profile {
 
     public static final String FILE_ENDING = ".pwmp";
     private File profileFile;
-    private RootEntry profilemodel;
+    private RootEntry profileModel;
     private byte[] key;
 
     /**
@@ -35,9 +35,10 @@ public class Profile {
      * @throws PWMException when the profile couldn't be loaded (wrong key, etc.)
      */
     public Profile(String masterkey, File profileFile) throws PWMException {
-        this(masterkey);
         this.profileFile = profileFile;
+        key = masterkey.getBytes(PWMCharset.get());
         decrypt();
+        profileModel.setName(profileFile.getName());
     }
     
     /**
@@ -46,11 +47,12 @@ public class Profile {
      * @param masterkey the key in plaintext
      */
     public Profile(String masterkey) {
-        this.key = masterkey.getBytes(PWMCharset.get());
-        profilemodel = new RootEntry();
+        key = masterkey.getBytes(PWMCharset.get());
+        profileModel = new RootEntry();
+        profileModel.setName("/");
     }
     
-    public RootEntry getRootEntry() { return profilemodel; }
+    public RootEntry getRootEntry() { return profileModel; }
     public void setFile(File file) { profileFile = file; }
 
     /**
@@ -77,7 +79,7 @@ public class Profile {
         
         EncryptionAlgorithm encryptionAlgorithm = EncryptionFactory.getEncryption();
         decrypted = encryptionAlgorithm.decrypt(ciphertext, key);
-        profilemodel = readFromArray(decrypted);
+        profileModel = readFromArray(decrypted);
     }
 
     /**
@@ -89,7 +91,7 @@ public class Profile {
 
         try (ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 ObjectOutputStream o = new ObjectOutputStream(baos)) {
-            o.writeObject(profilemodel);
+            o.writeObject(profileModel);
             o.flush();
 
             toReturn = baos.toByteArray();

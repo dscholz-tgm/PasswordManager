@@ -15,6 +15,7 @@ import pwm.profilemodel.EntryContainer;
 import pwm.profilemodel.PasswordEntry;
 import pwm.profilemodel.ProfileEntry;
 import pwm.profilemodel.RootEntry;
+import pwm.profilemodel.passwordfields.EntryField;
 import pwm.ui.Display;
 import pwm.ui.rendering.ReloadableButton;
 import pwm.ui.rendering.TreeWrapper;
@@ -55,6 +56,10 @@ public class Controller {
 
     private String inputDialog(String message) {
         return inputDialog(message, PLAIN_MESSAGE);
+    }
+    
+    private String inputDialog(String message, String initalSelectionValue) {
+        return (String)JOptionPane.showInputDialog(display, assets.getLocalized(message), assets.getLocalized(message + ".title"), PLAIN_MESSAGE, null, null, initalSelectionValue);
     }
 
     private String inputDialog(String message, int messagetype) {
@@ -220,12 +225,19 @@ public class Controller {
     /**
      * Invoked when creating a password
      */
-    public void createPassword() {
-        String passwordTitle = inputDialog("password.create.title");
-        String passwordUsername = inputDialog("password.create.username");
-        String passwordPassword = maskedConfirmDialog("password.create.password");
-        String passwordWebsite = inputDialog("password.create.website");
-
+    public void createPassword(String mode) {
+        Category c = (Category)display.getSelectedRow();
+        List<ProfileEntry> pey = c.getEntries();
+        PasswordEntry pe = (PasswordEntry) pey.get(display.getSelectedIndex());
+        List<EntryField> ef = pe.getEntryfields();
+        String passwordTitle = null, passwordUsername = null, passwordPassword = null, passwordWebsite = null;
+        
+        if(!ef.isEmpty()){
+            passwordTitle = inputDialog("password." + mode + ".title", ef.get(0).getValue());
+            passwordUsername = inputDialog("password." + mode + ".username", ef.get(1).getValue());
+            passwordPassword = maskedConfirmDialog("password." + mode + ".password");
+            passwordWebsite = inputDialog("password." + mode + ".website", ef.get(3).getValue());
+        }
         if (passwordTitle == null || passwordUsername == null || passwordPassword == null || passwordWebsite == null) {
             return;
         }
@@ -240,7 +252,31 @@ public class Controller {
      * Invoked when editing a password
      */
     public void editPassword() {
-        //Not implemented yet
+//        EntryContainer ec = display.getSelectedContainer();
+//        int index = display.getSelectedIndex();
+//         if (ec instanceof Category) {
+//            Category category = ((Category) ec);
+//            int newEntryName = confirmDialog("entry.edit", WARNING_MESSAGE);
+//            if (newEntryName == OK_OPTION) {
+//                String passwordTitle = inputDialog("password.edit.title");
+//                String passwordUsername = inputDialog("password.edit.username");
+//                String passwordPassword = maskedConfirmDialog("password.edit.password");
+//                String passwordWebsite = inputDialog("password.edit.website");
+//                if (passwordTitle == null || passwordUsername == null || passwordPassword == null || passwordWebsite == null) {
+//                    return;
+//                }
+//                PasswordEntry pe = (PasswordEntry) category.getEntries().get(index);
+//                List<EntryField> ef = pe.getEntryfields();
+//                ef.get
+//            }
+//         }
+//        createPassword("edit");
+//        EntryContainer ec = display.getSelectedContainer();
+//        ProfileEntry pe = display.getSelectedRow();
+//        if (ec instanceof Category) {
+//            Category category = ((Category) ec);
+//            category.removeEntry(pe);
+//        }
     }
 
     /**
@@ -249,7 +285,7 @@ public class Controller {
     public void removePassword() {
         EntryContainer ec = display.getSelectedContainer();
         ProfileEntry pe = display.getSelectedRow();
-
+        
         if (ec instanceof Category) {
             Category category = ((Category) ec);
             int newEntryName = confirmDialog("entry.remove", WARNING_MESSAGE);

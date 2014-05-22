@@ -5,7 +5,6 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -78,8 +77,8 @@ public class Display extends JFrame {
         tree.setModel(null);
 
         //Modifying
-        tree.setRootVisible(false);
-        tree.setShowsRootHandles(true);
+//        tree.setRootVisible(false);
+//        tree.setShowsRootHandles(true);
         tree.setBackground(PWMColors.TREE_COLOR);
         tree.setCellRenderer(new TreeRenderer());
         tree.addTreeSelectionListener(new CategorySelectListener(getRightPanel()));
@@ -136,8 +135,16 @@ public class Display extends JFrame {
     public ProfileEntry getSelectedRow() {
         int index = rightPanel.getTable().getSelectedRow();
         EntryContainer kat = getSelectedContainer();
-        List<ProfileEntry> pes = controller.getRoot().getEntries();
-        return pes.get(index);
+        return controller.getRoot().getEntries().get(index+1);
+    }
+    
+    /**
+     * Returns the Selected Profile Entry,
+     * (the row in Password Entries)
+     * @return the Profile Entry
+     */
+    public int getSelectedIndex() {
+        return rightPanel.getTable().getSelectedRow()+1;
     }
 
     /**
