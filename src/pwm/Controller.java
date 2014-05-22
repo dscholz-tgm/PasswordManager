@@ -57,9 +57,9 @@ public class Controller {
     private String inputDialog(String message) {
         return inputDialog(message, PLAIN_MESSAGE);
     }
-    
+
     private String inputDialog(String message, String initalSelectionValue) {
-        return (String)JOptionPane.showInputDialog(display, assets.getLocalized(message), assets.getLocalized(message + ".title"), PLAIN_MESSAGE, null, null, initalSelectionValue);
+        return (String) JOptionPane.showInputDialog(display, assets.getLocalized(message), assets.getLocalized(message + ".title"), PLAIN_MESSAGE, null, null, initalSelectionValue);
     }
 
     private String inputDialog(String message, int messagetype) {
@@ -226,13 +226,13 @@ public class Controller {
      * Invoked when creating a password
      */
     public void createPassword(String mode) {
-        Category c = (Category)display.getSelectedRow();
+        Category c = (Category) display.getSelectedRow();
         List<ProfileEntry> pey = c.getEntries();
         PasswordEntry pe = (PasswordEntry) pey.get(display.getSelectedIndex());
         List<EntryField> ef = pe.getEntryfields();
         String passwordTitle = null, passwordUsername = null, passwordPassword = null, passwordWebsite = null;
-        
-        if(!ef.isEmpty()){
+
+        if (!ef.isEmpty()) {
             passwordTitle = inputDialog("password." + mode + ".title", ef.get(0).getValue());
             passwordUsername = inputDialog("password." + mode + ".username", ef.get(1).getValue());
             passwordPassword = maskedConfirmDialog("password." + mode + ".password");
@@ -285,7 +285,7 @@ public class Controller {
     public void removePassword() {
         EntryContainer ec = display.getSelectedContainer();
         ProfileEntry pe = display.getSelectedRow();
-        
+
         if (ec instanceof Category) {
             Category category = ((Category) ec);
             int newEntryName = confirmDialog("entry.remove", WARNING_MESSAGE);
@@ -300,15 +300,17 @@ public class Controller {
      */
     public void changeLanguage() {
         Object[] selectionValues = {"English", "German(Deutsch)"};
-        String initialSelection = "English";
+        String initialSelection = assets.getSetting("lang").equals("en") ? "English" : "German(Deutsch)";
         String language;
         Object selection = JOptionPane.showInputDialog(null, null,
                 assets.getLocalized("menubar.view.changelanguage"), JOptionPane.QUESTION_MESSAGE, null, selectionValues, initialSelection);
-        selection = (String) selection;
-        language = selection.equals("English") ? "en" : "de";
-        assets.setSetting("lang", language);
-        display.updateMenuBar();
-        display.updateTableHeaders();
+        if ( selection != null) {
+            selection = (String) selection;
+            language = selection.equals("English") ? "en" : "de";
+            assets.setSetting("lang", language);
+            display.updateMenuBar();
+            display.updateTableHeaders();
+        }
     }
 
     /**
