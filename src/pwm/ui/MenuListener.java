@@ -19,6 +19,7 @@ public class MenuListener implements ActionListener {
     }
 
     public void menuAction(String action) {
+        
         switch (action) {
             //profile
             case "new": controller.newProfile(); break;
