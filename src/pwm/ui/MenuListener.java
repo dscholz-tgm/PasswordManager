@@ -25,7 +25,8 @@ public class MenuListener implements ActionListener {
             case "open": controller.openProfile();  break;
             case "saveas": controller.saveProfileAs(); break;
             case "close": controller.close(); break;
-                
+            case "changemasterkey": controller.changeMasterkey(); break;
+            
             //edit
             case "createcategory": controller.createCategory(); break;
             case "editcategory": controller.editCategory(); break;

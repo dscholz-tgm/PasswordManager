@@ -2,14 +2,18 @@ package pwm;
 
 import java.io.File;
 import java.util.List;
+
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.OK_OPTION;
 import static javax.swing.JOptionPane.PLAIN_MESSAGE;
 import static javax.swing.JOptionPane.WARNING_MESSAGE;
+
 import javax.swing.JPasswordField;
 import javax.swing.filechooser.FileFilter;
+
 import pwm.profilemodel.Category;
 import pwm.profilemodel.EntryContainer;
 import pwm.profilemodel.PasswordEntry;
@@ -19,6 +23,7 @@ import pwm.profilemodel.passwordfields.EntryField;
 import pwm.ui.Display;
 import pwm.ui.rendering.ReloadableButton;
 import pwm.ui.rendering.TreeWrapper;
+import pwm.utils.PWMCharset;
 
 /**
  * Handles the interactions
@@ -313,6 +318,18 @@ public class Controller {
         }
     }
 
+    /**
+     * Invoked when changing the masterkey
+     */
+    public void changeMasterkey() {
+        String newMasterKey = inputDialog("master.change", JOptionPane.QUESTION_MESSAGE);
+        if(newMasterKey == null || newMasterKey.equals("")){
+            return;
+        }else{
+            profile.setKey(newMasterKey.getBytes(PWMCharset.get()));
+        }
+    }
+    
     /**
      * Returns the root Entry
      * @return the root

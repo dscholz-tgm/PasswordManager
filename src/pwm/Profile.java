@@ -164,12 +164,8 @@ public class Profile {
         return toReturn;
     }
 
-    public byte[] getKey() {
-        return key;
-    }
+    public byte[] getKey() {return key;}
 
-    public void setKey(byte[] key) {
-        this.key = key;
-    }
+    public void setKey(byte[] key) {this.key = key;}
 
 }
