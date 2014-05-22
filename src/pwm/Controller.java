@@ -148,7 +148,22 @@ public class Controller {
     }
 
     /**
-     * Invoked when saving the profile
+     * Invoked when saving the profile (Save)
+     */
+    public void saveProfile() {
+        if(profile.getFile() == null){
+            saveProfileAs();    //Calls saveAs if location unknown
+        }else{
+            try {
+                profile.encrypt();
+            } catch (PWMException ex) {
+                messageDialog(ex.getMessage(), ERROR_MESSAGE);
+            }
+        }
+    }
+    
+    /**
+     * Invoked when saving the profile (Save as...)
      */
     public void saveProfileAs() {
         JFileChooser chooser = new JFileChooser();
@@ -168,6 +183,18 @@ public class Controller {
         }
     }
 
+    /**
+     * Invoked when changing the masterkey
+     */
+    public void changeMasterkey() {
+        String newMasterKey = inputDialog("masterkey.change", JOptionPane.QUESTION_MESSAGE);
+        if(newMasterKey == null || newMasterKey.equals("")){
+            return;
+        }else{
+            profile.setKey(newMasterKey.getBytes(PWMCharset.get()));
+        }
+    }
+    
     /**
      * Invoked when closing the application
      */
@@ -315,18 +342,6 @@ public class Controller {
             assets.setSetting("lang", language);
             display.updateMenuBar();
             display.updateTableHeaders();
-        }
-    }
-
-    /**
-     * Invoked when changing the masterkey
-     */
-    public void changeMasterkey() {
-        String newMasterKey = inputDialog("masterkey.change", JOptionPane.QUESTION_MESSAGE);
-        if(newMasterKey == null || newMasterKey.equals("")){
-            return;
-        }else{
-            profile.setKey(newMasterKey.getBytes(PWMCharset.get()));
         }
     }
     

@@ -51,9 +51,6 @@ public class Profile {
         profileModel = new RootEntry();
         profileModel.setName("/");
     }
-    
-    public RootEntry getRootEntry() { return profileModel; }
-    public void setFile(File file) { profileFile = file; }
 
     /**
      * Encrypts the profilemodel and saves it to the file
@@ -164,8 +161,13 @@ public class Profile {
         return toReturn;
     }
 
+    public RootEntry getRootEntry() { return profileModel; }
+    
     public byte[] getKey() {return key;}
 
     public void setKey(byte[] key) {this.key = key;}
 
+    public File getFile() {return profileFile;}
+
+    public void setFile(File file) { profileFile = file; }
 }
