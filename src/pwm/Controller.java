@@ -322,7 +322,7 @@ public class Controller {
      * Invoked when changing the masterkey
      */
     public void changeMasterkey() {
-        String newMasterKey = inputDialog("master.change", JOptionPane.QUESTION_MESSAGE);
+        String newMasterKey = inputDialog("masterkey.change", JOptionPane.QUESTION_MESSAGE);
         if(newMasterKey == null || newMasterKey.equals("")){
             return;
         }else{
