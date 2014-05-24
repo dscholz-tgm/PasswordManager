@@ -41,7 +41,6 @@ public class MenuListener implements ActionListener {
             case "changelanguage": controller.changeLanguage(); break;
                 
             default:
-            System.err.println(action);
         }
     }
 

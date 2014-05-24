@@ -1,7 +1,10 @@
 package pwm;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -36,10 +39,12 @@ public class Controller {
     private Assets assets;
     private Display display;
     private Profile profile;
+    private CryptFile cryptFile;
     private RootEntry root;
     private TreeWrapper tw;
     private JPasswordField pf;
-
+    private String cryptFileName =  "c:\\simple\\test";
+    
     public Controller(Assets assets) {
         this.assets = assets;
     }
@@ -151,9 +156,9 @@ public class Controller {
      * Invoked when saving the profile (Save)
      */
     public void saveProfile() {
-        if(profile.getFile() == null){
+        if (profile.getFile() == null) {
             saveProfileAs();    //Calls saveAs if location unknown
-        }else{
+        } else {
             try {
                 profile.encrypt();
             } catch (PWMException ex) {
@@ -161,7 +166,7 @@ public class Controller {
             }
         }
     }
-    
+
     /**
      * Invoked when saving the profile (Save as...)
      */
@@ -188,19 +193,35 @@ public class Controller {
      */
     public void changeMasterkey() {
         String newMasterKey = inputDialog("masterkey.change", JOptionPane.QUESTION_MESSAGE);
-        if(newMasterKey == null || newMasterKey.equals("")){
+        if (newMasterKey == null || newMasterKey.equals("")) {
             return;
-        }else{
+        } else {
             profile.setKey(newMasterKey.getBytes(PWMCharset.get()));
         }
     }
-    
+
     /**
      * Invoked when closing the application
      */
     public void close() {
         if (JOptionPane.showConfirmDialog(null, assets.getLocalized("close.dialog"), assets.getLocalized("close.title"), JOptionPane.YES_NO_OPTION) == 0) {
             System.exit(0);
+        }
+    }
+
+    //////////
+    // Cryptfile
+    //////////
+    /**
+     * Invoked when creating a CryptFile
+     */
+    public void createCryptFile(){
+        cryptFileName = profile.getFile().getParent()+"\\cryptfile";
+        cryptFile = new CryptFile(cryptFileName, 128);
+        try {
+            cryptFile.encrypt();
+        } catch (PWMException ex) {
+            Logger.getLogger(CryptFile.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -336,7 +357,7 @@ public class Controller {
         String language;
         Object selection = JOptionPane.showInputDialog(null, null,
                 assets.getLocalized("menubar.view.changelanguage"), JOptionPane.QUESTION_MESSAGE, null, selectionValues, initialSelection);
-        if ( selection != null) {
+        if (selection != null) {
             selection = (String) selection;
             language = selection.equals("English") ? "en" : "de";
             assets.setSetting("lang", language);
@@ -344,7 +365,7 @@ public class Controller {
             display.updateTableHeaders();
         }
     }
-    
+
     /**
      * Returns the root Entry
      * @return the root
