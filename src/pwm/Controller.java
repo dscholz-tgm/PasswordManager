@@ -24,6 +24,7 @@ import pwm.profilemodel.ProfileEntry;
 import pwm.profilemodel.RootEntry;
 import pwm.profilemodel.passwordfields.EntryField;
 import pwm.ui.Display;
+import pwm.ui.PasswordEntryWindow;
 import pwm.ui.rendering.ReloadableButton;
 import pwm.ui.rendering.TreeWrapper;
 import pwm.utils.PWMCharset;
@@ -279,25 +280,12 @@ public class Controller {
      * Invoked when creating a password
      */
     public void createPassword(String mode) {
-        Category c = (Category) display.getSelectedRow();
-        List<ProfileEntry> pey = c.getEntries();
-        PasswordEntry pe = (PasswordEntry) pey.get(display.getSelectedIndex());
-        List<EntryField> ef = pe.getEntryfields();
-        String passwordTitle = null, passwordUsername = null, passwordPassword = null, passwordWebsite = null;
-
-        if (!ef.isEmpty()) {
-            passwordTitle = inputDialog("password." + mode + ".title", ef.get(0).getValue());
-            passwordUsername = inputDialog("password." + mode + ".username", ef.get(1).getValue());
-            passwordPassword = maskedConfirmDialog("password." + mode + ".password");
-            passwordWebsite = inputDialog("password." + mode + ".website", ef.get(3).getValue());
-        }
-        if (passwordTitle == null || passwordUsername == null || passwordPassword == null || passwordWebsite == null) {
-            return;
-        }
-
+  
+    	PasswordEntryWindow.get();
+    	
         EntryContainer cont = display.getSelectedContainer();
         if (cont != getRoot()) {
-            new PasswordEntry(display.getSelectedContainer(), passwordTitle, passwordUsername, passwordPassword, passwordWebsite);
+//            new PasswordEntry(display.getSelectedContainer(), passwordTitle, passwordUsername, passwordPassword, passwordWebsite);
         }
     }
 
