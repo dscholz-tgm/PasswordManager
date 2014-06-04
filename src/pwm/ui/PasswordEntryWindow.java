@@ -28,6 +28,9 @@ import pwm.ui.rendering.WindowButtonListener;
 
 /**
  * 
+ * Eingenes Fesnter fuer die eingabe neuer Passwoerter
+ * 
+ * 
  * @author Brunner Helmuth
  * @version Jun 4, 2014
  */
@@ -59,6 +62,10 @@ public class PasswordEntryWindow extends JFrame {
 	};
 
 
+	/**
+	 * Constructor
+	 * @param c ein Controller object
+	 */
 	private PasswordEntryWindow(Controller c) {
 		super();
 
@@ -86,6 +93,8 @@ public class PasswordEntryWindow extends JFrame {
 	
 	/**
 	 * 
+	 * Ein Konstruktor der alle Paramter uebernimmt die in die Felder eingetragen werden koennen
+	 * 
 	 * @param c
 	 * @param title
 	 * @param user
@@ -103,6 +112,11 @@ public class PasswordEntryWindow extends JFrame {
 		this.passwordtwo.setText(passwordtwo);
 	}
 
+	/**
+	 * Methode fuer das Singleton-Pattern
+	 * @param c a Controller-Object
+	 * @return ein Instance dieser Klasse
+	 */
 	public static PasswordEntryWindow get(Controller c) {
 		if(instance!=null)
 			instance.dispose();
@@ -186,42 +200,82 @@ public class PasswordEntryWindow extends JFrame {
 		super.add(co, BorderLayout.SOUTH);
 	}
 
+	/**
+	 * Getter Methode
+	 * @return the title-field for the title
+	 */
 	public JTextField getFieldTitle() {
 		return title;
 	}
 
+	/**
+	 * Setter Methode
+	 * @param title the JTextfield
+	 */
 	public void setTitle(JTextField title) {
 		this.title = title;
 	}
 
+	/**
+	 * Getter Methode
+	 * @return the Textfield for the username
+	 */
 	public JTextField getUsername() {
 		return username;
 	}
 
+	/**
+	 * Setter-Methode
+	 * @param username
+	 */
 	public void setUsername(JTextField username) {
 		this.username = username;
 	}
 
+	/**
+	 * Getter-Methode
+	 * @return
+	 */
 	public JTextField getUrl() {
 		return url;
 	}
 
+	/**
+	 * Setter-Methode
+	 * @param url
+	 */
 	public void setUrl(JTextField url) {
 		this.url = url;
 	}
 
+	/**
+	 * Getter-Methode
+	 * @return
+	 */
 	public JPasswordField getPasswordone() {
 		return passwordone;
 	}
 
+	/**
+	 * Setter for the password textfield
+	 * @param passwordone
+	 */
 	public void setPasswordone(JPasswordField passwordone) {
 		this.passwordone = passwordone;
 	}
 
+	/**
+	 * Getter-Methode
+	 * @return
+	 */
 	public JPasswordField getPasswordtwo() {
 		return passwordtwo;
 	}
 
+	/**
+	 * Setter Methode
+	 * @param passwordtwo
+	 */
 	public void setPasswordtwo(JPasswordField passwordtwo) {
 		this.passwordtwo = passwordtwo;
 	}
