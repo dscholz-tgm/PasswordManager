@@ -8,6 +8,8 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +22,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import pwm.Assets;
+import pwm.Controller;
 import pwm.ui.rendering.PWMColors;
+import pwm.ui.rendering.WindowButtonListener;
 
 /**
  * 
@@ -33,9 +37,11 @@ public class PasswordEntryWindow extends JFrame {
 
 	private Assets assets= Assets.get();
 
+	private static Controller controller;
+	
 	private int width= 500, height= 350;
 
-	private JPanel superpanel, center;
+	private JPanel superpanel, center, buttonpanel;
 	private Container co;
 	private GridBagConstraints c;
 
@@ -53,7 +59,7 @@ public class PasswordEntryWindow extends JFrame {
 	};
 
 
-	private PasswordEntryWindow() {
+	private PasswordEntryWindow(Controller c) {
 		super();
 
 		//centered window
@@ -70,16 +76,41 @@ public class PasswordEntryWindow extends JFrame {
 
 		superpanel= new JPanel();
 		center= new JPanel();
+		buttonpanel= new JPanel();
 
+		this.controller= c;
+		
 		this.init();
 
 	}
+	
+	/**
+	 * 
+	 * @param c
+	 * @param title
+	 * @param user
+	 * @param url
+	 * @param passwordone
+	 * @param passwordtwo
+	 */
+	public PasswordEntryWindow(Controller c, String title, String user, String url, String passwordone, String passwordtwo) {
+		this.init();
+		
+		this.title.setText(title);
+		this.username.setText(user);
+		this.url.setText(url);
+		this.passwordone.setText(passwordone);
+		this.passwordtwo.setText(passwordtwo);
+	}
 
-	public static PasswordEntryWindow get() {
+	public static PasswordEntryWindow get(Controller c) {
 		if(instance!=null)
 			instance.dispose();
-		instance= new PasswordEntryWindow();
+		instance= new PasswordEntryWindow(c);
 		instance.setVisible(true);
+		
+		controller= c;
+		System.out.println("PasswordEntryWindow"+controller);
 
 		return instance;
 	}
@@ -125,12 +156,14 @@ public class PasswordEntryWindow extends JFrame {
 		panels[4].add(passwordtwo, BorderLayout.EAST);
 		center.add(panels[4]);		
 
-		this.save= new JButton("save");
-		this.exit= new JButton("exit");
+		this.save= new JButton(assets.getLocalized("passwordentrywindow.buttonsave"));
+		this.save.addActionListener(new WindowButtonListener(this, controller));
+		
+		this.exit= new JButton(assets.getLocalized("passwordentrywindow.buttonexit"));
+		this.exit.addActionListener(new WindowButtonListener(this, controller));
 
 		c= new GridBagConstraints();
 
-		//TODO Fix this not really good
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipady = 0;       //reset to default
 		c.weighty = 2.0;   //request any extra vertical space
@@ -143,12 +176,53 @@ public class PasswordEntryWindow extends JFrame {
 		co= new Container();
 		co.setLayout(new GridBagLayout());
 
-		co.add(this.save, c);
-		co.add(this.exit, c);
+		buttonpanel.add(this.save);
+		buttonpanel.add(this.exit);
+
+		co.add(buttonpanel, c);
 
 		this.superpanel.add(center);
 		super.add(this.superpanel);
 		super.add(co, BorderLayout.SOUTH);
 	}
 
+	public JTextField getFieldTitle() {
+		return title;
+	}
+
+	public void setTitle(JTextField title) {
+		this.title = title;
+	}
+
+	public JTextField getUsername() {
+		return username;
+	}
+
+	public void setUsername(JTextField username) {
+		this.username = username;
+	}
+
+	public JTextField getUrl() {
+		return url;
+	}
+
+	public void setUrl(JTextField url) {
+		this.url = url;
+	}
+
+	public JPasswordField getPasswordone() {
+		return passwordone;
+	}
+
+	public void setPasswordone(JPasswordField passwordone) {
+		this.passwordone = passwordone;
+	}
+
+	public JPasswordField getPasswordtwo() {
+		return passwordtwo;
+	}
+
+	public void setPasswordtwo(JPasswordField passwordtwo) {
+		this.passwordtwo = passwordtwo;
+	}
 }

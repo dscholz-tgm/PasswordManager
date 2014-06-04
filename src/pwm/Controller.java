@@ -278,15 +278,19 @@ public class Controller {
     }
 
     /**
+     * 
+     */
+    public void createPassword() {
+    	PasswordEntryWindow.get(this);
+    }
+    
+    /**
      * Invoked when creating a password
      */
-    public void createPassword(String mode) {
-  
-    	PasswordEntryWindow.get();
-    	
-        EntryContainer cont = display.getSelectedContainer();
+    public void createPassword(String title, String username, String password, String url) {    	
+    	EntryContainer cont = display.getSelectedContainer();
         if (cont != getRoot()) {
-//            new PasswordEntry(display.getSelectedContainer(), passwordTitle, passwordUsername, passwordPassword, passwordWebsite);
+            new PasswordEntry(cont, title, username, password, url);
         }
     }
 
@@ -294,31 +298,7 @@ public class Controller {
      * Invoked when editing a password
      */
     public void editPassword() {
-//        EntryContainer ec = display.getSelectedContainer();
-//        int index = display.getSelectedIndex();
-//         if (ec instanceof Category) {
-//            Category category = ((Category) ec);
-//            int newEntryName = confirmDialog("entry.edit", WARNING_MESSAGE);
-//            if (newEntryName == OK_OPTION) {
-//                String passwordTitle = inputDialog("password.edit.title");
-//                String passwordUsername = inputDialog("password.edit.username");
-//                String passwordPassword = maskedConfirmDialog("password.edit.password");
-//                String passwordWebsite = inputDialog("password.edit.website");
-//                if (passwordTitle == null || passwordUsername == null || passwordPassword == null || passwordWebsite == null) {
-//                    return;
-//                }
-//                PasswordEntry pe = (PasswordEntry) category.getEntries().get(index);
-//                List<EntryField> ef = pe.getEntryfields();
-//                ef.get
-//            }
-//         }
-//        createPassword("edit");
-//        EntryContainer ec = display.getSelectedContainer();
-//        ProfileEntry pe = display.getSelectedRow();
-//        if (ec instanceof Category) {
-//            Category category = ((Category) ec);
-//            category.removeEntry(pe);
-//        }
+    	
     }
 
     /**
