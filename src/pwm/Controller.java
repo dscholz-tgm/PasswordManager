@@ -2,6 +2,7 @@ package pwm;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -354,6 +355,46 @@ public class Controller {
         }
     }
 
+    //////////
+    // Help
+    //////////
+    
+    /**
+     * Invoked by the Hilfe-MenuItem: Opens the help-Page
+     */
+    public void help(){
+        
+        String url = "http://lmgtfy.com/?q=Password+Manager+Help";
+        
+        try {
+            openUrl(url);
+        } catch (IOException e) {
+            
+        } catch (URISyntaxException e) {
+            
+        }
+    }
+    
+    public void checkUpdate(){
+    
+    }
+    
+    public void webPage(){
+        
+    }
+    
+    public void donate(){
+        
+    }
+    
+    public void about(){
+        
+    }
+    
+    //////////
+    // Utility-Methods
+    //////////
+    
     /**
      * Returns the root Entry
      * @return the root
@@ -361,4 +402,21 @@ public class Controller {
     public RootEntry getRoot() {
         return root;
     }
+    
+    /**
+     * Opens the given URL in the Default-Browser
+     * @param url the URL
+     * @throws IOException
+     * @throws URISyntaxException
+     */
+    public void openUrl(String url) throws IOException, URISyntaxException {
+        if(java.awt.Desktop.isDesktopSupported() ) {
+              java.awt.Desktop desktop = java.awt.Desktop.getDesktop();
+
+              if(desktop.isSupported(java.awt.Desktop.Action.BROWSE) ) {
+                java.net.URI uri = new java.net.URI(url);
+                    desktop.browse(uri);
+              }
+            } 
+      }
 }

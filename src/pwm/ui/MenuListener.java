@@ -39,9 +39,18 @@ public class MenuListener implements ActionListener {
 
             //view
             case "changelanguage": controller.changeLanguage(); break;
-                
-            default:
+            
+            
+            //help
+            case "help": controller.help(); break;
+            case "update": controller.checkUpdate(); break;
+            case "website": controller.webPage(); break;
+            case "donate": controller.donate(); break;
+            case "about": controller.about(); break;
+            
+            default: System.out.println(action);
         }
+        
     }
 
     @Override
