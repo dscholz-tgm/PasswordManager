@@ -335,6 +335,74 @@ public class Controller {
         }
     }
 
+    /**
+     * Invoked when changing the hash algorithmus
+     */
+    public void changeHashAlg() {
+        Object[] selectionValues = {"MD5Hash", "SHA1Hash", "SHA256"};
+        String initialSelection = "SHA1Hash";
+        String blaze = assets.getSetting("profile.hash");
+        if (blaze.equals("MD5")) {
+            initialSelection = "MD5Hash";
+        } else if (blaze.equals("SHA-1")) {
+            initialSelection = "SHA1Hash";
+        } else if (blaze.equals("SHA-256")) {
+            initialSelection = "SHA256";
+        }
+        String hash = "SHA-1";
+        Object selection = JOptionPane.showInputDialog(null, null,
+                assets.getLocalized("menubar.tools.hash.title"), JOptionPane.QUESTION_MESSAGE, null, selectionValues, initialSelection);
+        if (selection != null) {
+            selection = (String) selection;
+            if (selection.equals("MD5Hash")) {
+                hash = "MD5";
+            } else if (blaze.equals("SHA1Hash")) {
+                hash = "SHA-1";
+            } else if (blaze.equals("SHA256")) {
+                hash = "SHA-256";
+            }
+            assets.setSetting("profile.hash", hash);
+        }
+    }
+    
+     /**
+     * Invoked when changing the Encryption algorithmus
+     */
+    public void changeEncryptionAlg() {
+        Object[] selectionValues = {"AES128", "AES256", "BlowFish256"};
+        String initialSelection = "";
+        String blaze = assets.getSetting("profile.encryption");
+        if (blaze.equals("AES")) {
+            initialSelection = "AES128";
+        } else if (blaze.equals("AES256")) {
+            initialSelection = "AES256";
+        } else if (blaze.equals("BlowFish256")) {
+            initialSelection = "BlowFish256";
+        }
+        String hash = "";
+        Object selection = JOptionPane.showInputDialog(null, null,
+                assets.getLocalized("menubar.tools.encryption.title"), JOptionPane.QUESTION_MESSAGE, null, selectionValues, initialSelection);
+        if (selection != null) {
+            selection = (String) selection;
+            if (selection.equals("AES128")) {
+                hash = "AES";
+            } else if (selection.equals("AES256")) {
+                hash = "AES256";
+            } else if (selection.equals("BlowFish256")) {
+                hash = "BlowFish256";
+            }
+            assets.setSetting("profile.encryption", hash);
+        }
+    }
+    
+    public void generatePassword() {
+        CustomDialog cd = new CustomDialog(display, true,
+                assets.getLocalized("menubar.tools.passwordgen"),
+                assets.getLocalized("menubar.tools.passwordgen.button"),
+                assets.getLocalized("menubar.tools.passwordgen.length"));
+        cd.setVisible(true);
+    }
+    
     //////////
     // Help
     //////////

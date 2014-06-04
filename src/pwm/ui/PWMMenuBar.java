@@ -72,6 +72,9 @@ public final class PWMMenuBar extends JMenuBar {
             separator();
             createItem("passwordgen");
             separator();
+            createItem("hash");
+            createItem("encryption");
+            separator();
             createItem("options");
         ++jMenuCounter;   
             

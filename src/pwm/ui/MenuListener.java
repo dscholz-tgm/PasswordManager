@@ -39,7 +39,11 @@ public class MenuListener implements ActionListener {
 
             //view
             case "changelanguage": controller.changeLanguage(); break;
-            
+                
+            //extras
+            case "passwordgen": controller.generatePassword(); break;
+            case "hash": controller.changeHashAlg(); break;
+            case "encryption": controller.changeEncryptionAlg(); break;
             
             //help
             case "help": controller.help(); break;

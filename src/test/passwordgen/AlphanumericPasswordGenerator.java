@@ -24,7 +24,7 @@ public class AlphanumericPasswordGenerator {
     }
     
     
-    private String generatePW(int length, long salt) {
+    public String generatePW(int length, long salt) {
         String password = "";
         Random rand = new Random(System.nanoTime() + salt);
         String select;
