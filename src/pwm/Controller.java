@@ -375,20 +375,58 @@ public class Controller {
         }
     }
     
+    /**
+     * Invoked by the Update-MenuItem: Opens the update-Page
+     */
     public void checkUpdate(){
     
+        String url = "https://github.com/dscholz-tgm/PasswordManager";
+        
+        try {
+            openUrl(url);
+        } catch (IOException e) {
+            
+        } catch (URISyntaxException e) {
+            
+        }
+        
     }
     
+    /**
+     * Invoked by the Internetseite-MenuItem: Opens the PWM-Webpage
+     */
     public void webPage(){
+        String url = "https://github.com/dscholz-tgm/PasswordManager";
         
+        try {
+            openUrl(url);
+        } catch (IOException e) {
+            
+        } catch (URISyntaxException e) {
+            
+        }
     }
     
+    /**
+     * Invoked by the Spenden-MenuItem: Opens the Donate-Page
+     */
     public void donate(){
+        String url = "http://www.penny4nasa.org/";
         
+        try {
+            openUrl(url);
+        } catch (IOException e) {
+            
+        } catch (URISyntaxException e) {
+            
+        }
     }
     
+    /**
+     * Invoked by the About-MenuItem: Opens information about us
+     */
     public void about(){
-        
+        JOptionPane.showMessageDialog(null, "Developed by Adrian Bergler, Helmuth Brunner, Dominik Scholz, Samuel Schmidt");
     }
     
     //////////
