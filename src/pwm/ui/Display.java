@@ -135,7 +135,7 @@ public class Display extends JFrame {
     public ProfileEntry getSelectedRow() {
         int index = rightPanel.getTable().getSelectedRow();
         EntryContainer kat = getSelectedContainer();
-        return controller.getRoot().getEntries().get(index+1);
+        return controller.getRoot().getEntries().get(index);
     }
     
     /**

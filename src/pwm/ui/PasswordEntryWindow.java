@@ -32,7 +32,7 @@ import pwm.ui.rendering.WindowButtonListener;
  * 
  * 
  * @author Brunner Helmuth
- * @version Jun 4, 2014
+ * @version Jun 3, 2014
  */
 public class PasswordEntryWindow extends JFrame {
 
